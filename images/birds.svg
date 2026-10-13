@@ -1,0 +1,17 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="#2B2B2B" opacity="0.6">
+    <!-- Large seagulls -->
+    <path d="M200,200 Q300,150 400,200 Q500,150 600,200" stroke-width="3"/>
+    <path d="M1000,150 Q1100,100 1200,150 Q1300,100 1400,150" stroke-width="3"/>
+    <path d="M1600,250 Q1700,200 1800,250 Q1900,200 2000,250" stroke-width="3"/>
+    
+    <!-- Medium birds -->
+    <path d="M400,100 Q450,75 500,100 Q550,75 600,100" stroke-width="2"/>
+    <path d="M1200,80 Q1250,55 1300,80 Q1350,55 1400,80" stroke-width="2"/>
+    
+    <!-- Small distant birds -->
+    <path d="M700,50 Q725,35 750,50 Q775,35 800,50" stroke-width="1.5"/>
+    <path d="M900,70 Q925,55 950,70 Q975,55 1000,70" stroke-width="1.5"/>
+    <path d="M1500,40 Q1525,25 1550,40 Q1575,25 1600,40" stroke-width="1.5"/>
+  </g>
+</svg> 

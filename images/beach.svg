@@ -1,0 +1,28 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0077BE"/>
+      <stop offset="100%" style="stop-color:#009DC4"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Water -->
+  <path d="M0,600 
+           C480,550 960,650 1440,600 
+           C1920,550 1920,1080 1920,1080 
+           L0,1080 Z" 
+        fill="url(#waterGradient)" opacity="0.8"/>
+  
+  <!-- Beach -->
+  <path d="M0,700 
+           C480,650 960,750 1440,700 
+           C1920,650 1920,1080 1920,1080 
+           L0,1080 Z" 
+        fill="#F7E4BF"/>
+  
+  <!-- Wave details -->
+  <path d="M0,600 C240,580 480,620 720,600 C960,580 1200,620 1440,600 C1680,580 1920,620 1920,600" 
+        stroke="#FFFFFF" fill="none" stroke-width="2" opacity="0.5"/>
+  <path d="M0,620 C240,600 480,640 720,620 C960,600 1200,640 1440,620 C1680,600 1920,640 1920,620" 
+        stroke="#FFFFFF" fill="none" stroke-width="2" opacity="0.3"/>
+</svg> 

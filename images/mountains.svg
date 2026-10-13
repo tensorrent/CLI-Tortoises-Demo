@@ -1,0 +1,12 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <!-- Distant cliffs -->
+    <path d="M-200,1080 L300,500 L800,1080 Z" fill="#7B6D5D" opacity="0.7"/>
+    <path d="M600,1080 L900,600 L1200,1080 Z" fill="#8B7355" opacity="0.8"/>
+    <path d="M1000,1080 L1400,550 L1800,1080 Z" fill="#9B826D" opacity="0.6"/>
+    
+    <!-- Smaller rock formations -->
+    <path d="M100,1080 L300,700 L500,1080 Z" fill="#A67B5B" opacity="0.75"/>
+    <path d="M1600,1080 L1800,750 L2000,1080 Z" fill="#8B7355" opacity="0.65"/>
+  </g>
+</svg> 
