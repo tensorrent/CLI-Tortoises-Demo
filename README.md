@@ -8,7 +8,7 @@ command the Wartles war table. It runs in the browser on a phone or a computer: 
 - Your progress stays in this browser.
 
 This site is built from [tensorrent/CLI--Tortoises](https://github.com/tensorrent/CLI--Tortoises) at
-`2ea79c6a379b`. That repo holds the source, the tests, the save server and the build:
+`90483a0144de`. That repo holds the source, the tests, the save server and the build:
 
 ```sh
 cd app && npm install && npm run build:demo
