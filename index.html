@@ -4,216 +4,417 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CLI Tortoises</title>
-<meta name="description" content="Ride a tortoise around a living island, battle and tame the wild ones, play the Shell Duel and command the Wartles war table. A playable demo in your browser.">
-<meta property="og:title" content="CLI Tortoises: play the demo">
-<meta property="og:description" content="Ride, battle, tame and raise a tortoise whose Scroll remembers everything you do together. Runs in the browser, phone or computer.">
-<meta property="og:image" content="https://tensorrent.github.io/cli-tortoises-demo/shots/island.jpg">
-<meta name="theme-color" content="#3a8fd0">
+<meta name="description" content="Ride a tortoise around a sea of turtle islands. Battle and tame the wild ones, meet a voiced cast, wake the oldest turtle in the sea and cross to a new land. Free, in your browser, on phone or computer.">
+<meta property="og:title" content="CLI Tortoises: play free in your browser">
+<meta property="og:description" content="Ride, battle, tame and raise a tortoise whose Scroll remembers everything you do together. A sea of turtle islands, a voiced cast, two chapters. Phone or computer.">
+<meta property="og:image" content="https://tensorrent.github.io/CLI-Tortoises-Demo/shots/island.jpg">
+<meta name="theme-color" content="#5cb7ef">
 <link rel="icon" type="image/png" href="brand/icon-128.png">
 <link rel="apple-touch-icon" href="brand/icon-128.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@700;800;900&display=swap">
 <style>
 :root{
-  --panel:#fff6e2;--panel2:#f6e7c6;--bd:#2b1d16;--txt:#2b1d16;--dim:#5a4636;
-  --sky:#3a8fd0;--sky-hi:#9fdcff;--sea:#1d5f93;--leaf:#5fb046;
-  --gold:#c98a00;--sun:#ffcf3f;--rose:#ff6f91;
-  --fh:"Fredoka","Baloo 2",ui-rounded,"Segoe UI",system-ui,sans-serif;
+  --ink:#241710;--ink2:#5b4636;--cream:#fff7e6;--sand:#f6e7c4;--sand2:#eed8a6;
+  --sky1:#b6e6ff;--sky2:#62b9ef;--sky3:#2d84cc;--sea:#155a8f;--deep:#0c3a60;
+  --sun:#ffd23f;--pink:#ec1a8c;--pink2:#ff7cc0;--leaf:#5fb046;--rose:#ff6f91;
+  --fh:"Fredoka","Baloo 2",ui-rounded,"Arial Rounded MT Bold","Segoe UI",system-ui,sans-serif;
   --fb:"Nunito",ui-rounded,"Segoe UI",system-ui,sans-serif;
-  --r:18px;color-scheme:light;
+  --r:22px;--line:3px;--lift:0 5px 0 var(--ink);
+  color-scheme:light;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--panel2);color:var(--txt);font:600 1.05rem/1.55 var(--fb);-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--sand);color:var(--ink);font:700 1rem/1.6 var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
 a{color:inherit}
-.wrap{max-width:1140px;margin:0 auto;padding-inline:20px}
-h1,h2,h3{font-family:var(--fh);font-weight:700;line-height:1.08;text-wrap:balance;margin:0}
-h1{font-size:clamp(2.3rem,5.4vw,3.9rem);letter-spacing:-.01em}
-h2{font-size:clamp(1.7rem,3.6vw,2.5rem)}
-h3{font-size:1.35rem}
 p{margin:0}
-.eyebrow{font:800 .78rem var(--fb);letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-.glass{background:var(--panel);border:3px solid var(--bd);border-radius:var(--r);box-shadow:0 5px 0 var(--bd)}
-.btn{display:inline-flex;align-items:center;gap:.5em;font:700 1.1rem var(--fh);text-decoration:none;color:var(--txt);background:var(--panel);
-  border:3px solid var(--bd);border-radius:16px;padding:.7em 1.15em;box-shadow:0 4px 0 var(--bd);transition:transform .12s,box-shadow .12s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--bd)}
-.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--bd)}
-.btn.primary{background:var(--sun);font-size:1.25rem}
-.btn svg{width:1.1em;height:1.1em}
+h1,h2,h3{font-family:var(--fh);font-weight:700;line-height:1.05;text-wrap:balance;margin:0;letter-spacing:-.005em}
+h1{font-size:clamp(2.2rem,4.6vw,3.5rem)}
+h2{font-size:clamp(1.9rem,5.2vw,3rem)}
+h3{font-size:clamp(1.3rem,3.2vw,1.55rem)}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.eyebrow{font:900 .78rem var(--fb);letter-spacing:.16em;text-transform:uppercase}
+.lede{font-size:clamp(1.05rem,2.4vw,1.2rem);max-width:36em}
+.dim{color:var(--ink2)}
 
-/* sky over the sea, with a scalloped beach edge where the page begins */
-.hero{background:linear-gradient(180deg,var(--sky-hi) 0%,#7cc7f2 42%,var(--sky) 78%,var(--sea) 100%);padding-block:18px 70px;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:46px;background:var(--panel2);
-  -webkit-mask:radial-gradient(28px 22px at 28px 0,#0000 98%,#000) 0 0/56px 46px;mask:radial-gradient(28px 22px at 28px 0,#0000 98%,#000) 0 0/56px 46px}
-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:34px}
+/* buttons: chunky, like the game's own */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font:700 1.12rem var(--fh);text-decoration:none;color:var(--ink);
+  background:var(--cream);border:var(--line) solid var(--ink);border-radius:18px;padding:.72em 1.25em;box-shadow:var(--lift);
+  transition:transform .12s,box-shadow .12s;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--ink)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.go{background:var(--sun);font-size:1.32rem;padding:.78em 1.5em}
+.btn.pink{background:var(--pink);color:#fff;text-shadow:0 2px 0 #0004}
+.btn svg{width:1.05em;height:1.05em;flex:none}
+.card{background:var(--cream);border:var(--line) solid var(--ink);border-radius:var(--r);box-shadow:var(--lift)}
+
+/* ---- the hero: sky over the sea, the badge, one big Play ---- */
+.hero{position:relative;overflow:hidden;color:#fff;
+  background:radial-gradient(120% 70% at 85% 0%,#fff8 0,#fff0 55%),linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 38%,var(--sky3) 72%,var(--sea) 100%);
+  padding-block:max(12px,env(safe-area-inset-top,0px)) 96px}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:54px;background:var(--sand);
+  -webkit-mask:radial-gradient(32px 26px at 32px 0,#0000 98%,#000) 0 0/64px 54px;mask:radial-gradient(32px 26px at 32px 0,#0000 98%,#000) 0 0/64px 54px}
+.cloud{position:absolute;background:#fff;border-radius:999px;opacity:.85;filter:drop-shadow(0 4px 0 #ffffff55)}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud.c1{width:150px;height:44px;top:96px;left:-30px;animation:drift 70s linear infinite}
+.cloud.c1::before{width:70px;height:70px;left:22px;top:-34px}.cloud.c1::after{width:52px;height:52px;left:78px;top:-22px}
+.cloud.c2{width:120px;height:36px;top:40px;right:6%;opacity:.7;animation:drift 90s linear infinite reverse}
+.cloud.c2::before{width:56px;height:56px;left:18px;top:-28px}.cloud.c2::after{width:40px;height:40px;left:62px;top:-16px}
+@keyframes drift{from{transform:translateX(-10vw)}to{transform:translateX(30vw)}}
+nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:8px 18px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-.brand img{width:44px;height:44px;border-radius:12px;border:3px solid var(--bd);background:var(--panel)}
-.brand b{font:700 1.3rem var(--fh);color:#fff;text-shadow:0 2px 0 var(--bd)}
-nav .links{display:flex;gap:6px;flex-wrap:wrap}
-nav .links a{font:800 .85rem var(--fb);text-decoration:none;color:#fff;padding:6px 10px;border-radius:10px;text-shadow:0 1px 2px #0006}
-nav .links a:hover{background:#ffffff26}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.22fr);gap:40px;align-items:center}
-.hero .copy{color:#fff}
-.hero .copy .eyebrow{color:#e9f7ff}
-.hero h1{margin:.35em 0 .4em;text-shadow:0 3px 0 var(--bd)}
-.hero .lede{font-size:1.15rem;max-width:34em;color:#f3fbff;text-shadow:0 1px 2px #0005}
-.ctas{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 14px}
-.fine{font:700 .9rem var(--fb);color:#e6f5ff}
-.shot{margin:0;padding:8px;transform:rotate(1.2deg)}
-.shot img{border-radius:11px;border:2px solid var(--bd);aspect-ratio:16/9;object-fit:cover;width:100%}
-.shot figcaption{font:700 .85rem var(--fb);color:var(--dim);padding:8px 4px 2px}
+.brand img{width:42px;height:42px;border-radius:50%;border:var(--line) solid var(--ink);background:var(--pink)}
+.brand b{font:700 1.25rem var(--fh);color:#fff;text-shadow:0 2px 0 var(--ink)}
+nav .links{display:flex;gap:4px}
+nav .links a{font:900 .86rem var(--fb);text-decoration:none;color:#fff;padding:7px 11px;border-radius:12px;text-shadow:0 1px 2px #0006}
+nav .links a:hover{background:#ffffff2e}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:44px;align-items:center}
+.badge{width:clamp(120px,13vw,168px);aspect-ratio:1;filter:drop-shadow(0 6px 0 #0c3a6055);animation:bob 5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-2deg)}}
+.hero h1{margin:16px 0 14px;text-shadow:0 3px 0 var(--ink),0 0 18px #0c3a6044}
+.hero .lede{color:#f3fbff;text-shadow:0 1px 2px #0007}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 12px}
+.fine{font:800 .9rem var(--fb);color:#e8f6ff;text-shadow:0 1px 2px #0006}
+.art{position:relative;margin:0}
+.art .frame{padding:9px;transform:rotate(1.6deg)}
+.art img.shot{border-radius:13px;border:2px solid var(--ink);aspect-ratio:16/9;object-fit:cover;width:100%}
+.art .sticker{position:absolute;width:38%;max-width:220px;left:-7%;bottom:-13%;transform:rotate(-7deg);filter:drop-shadow(0 6px 0 #0c3a6066);animation:bob 4.2s ease-in-out infinite reverse}
+.art .bubble{position:absolute;right:4%;top:-20px;background:var(--cream);color:var(--ink);border:var(--line) solid var(--ink);border-radius:18px;
+  padding:.45em .8em;font:800 .92rem var(--fb);box-shadow:0 4px 0 var(--ink);transform:rotate(-2deg)}
+.art .bubble::after{content:"";position:absolute;left:22px;bottom:-12px;width:16px;height:16px;background:var(--cream);border-right:var(--line) solid var(--ink);border-bottom:var(--line) solid var(--ink);transform:rotate(45deg)}
 
-section{padding-block:64px}
-.sec-head{max-width:46em;margin-bottom:30px}
-.sec-head p{margin-top:12px;color:var(--dim);font-size:1.1rem}
-.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
-.mode{padding:10px 10px 18px;display:flex;flex-direction:column;gap:14px}
-.mode img{border-radius:11px;border:2px solid var(--bd);aspect-ratio:16/9;object-fit:cover;width:100%}
-.mode .body{padding:0 8px;display:flex;flex-direction:column;gap:8px;flex:1}
-.mode p{color:var(--dim)}
-.mode .go{margin-top:auto;padding-top:6px}
-.mode .go a{font:800 .95rem var(--fb);color:var(--sea);text-decoration:none;border-bottom:2px solid currentColor}
-.tag{display:inline-block;font:800 .72rem var(--fb);letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:9px;border:2px solid var(--bd);background:var(--panel2);align-self:flex-start}
+/* ---- facts: one strip, tucked over the tide line ---- */
+.facts{position:relative;z-index:3;margin-top:-34px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;overflow:hidden}
+.stats li{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px 10px 14px;gap:2px}
+.stats li+li{border-left:2px dashed #24171033}
+.stats b{font:700 clamp(1.6rem,3.4vw,2.2rem)/1 var(--fh);color:var(--pink)}
+.stats span{font:800 .9rem/1.3 var(--fb);color:var(--ink2)}
 
-.scroll{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:36px;align-items:center}
-.scroll .glass{padding:22px 24px}
-.axes{display:grid;grid-template-columns:auto 1fr auto;gap:10px 14px;align-items:center;font:800 .95rem var(--fb)}
-.axes .bar{height:14px;border:2px solid var(--bd);border-radius:8px;background:var(--panel2);overflow:hidden}
-.axes .bar i{display:block;height:100%;background:var(--leaf)}
-.axes .bar.wary i{background:var(--sky)}.axes .bar.cur i{background:var(--gold)}.axes .bar.kind i{background:var(--rose)}
-.axes .n{font-variant-numeric:tabular-nums;color:var(--dim)}
-.arch{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.arch span{font:800 .85rem var(--fb);padding:4px 10px;border-radius:10px;border:2px solid var(--bd);background:var(--panel2)}
-.arch span.on{background:var(--sun)}
-.note{margin-top:16px;font:700 .85rem var(--fb);color:var(--dim)}
+section{padding-block:clamp(56px,9vw,96px)}
+.head{max-width:44em;margin-bottom:clamp(26px,4vw,40px)}
+.head h2{margin:10px 0 12px}
+.head .eyebrow{color:var(--pink)}
+
+/* ---- the world: chapters ---- */
+.world{background:linear-gradient(180deg,var(--sand) 0,#e6f4fb 18%,#cfeaf8 100%)}
+.chapters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.chapter{overflow:hidden;display:flex;flex-direction:column}
+.chapter img{aspect-ratio:16/10;object-fit:cover;width:100%;border-bottom:var(--line) solid var(--ink)}
+.chapter .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px}
+.tag{align-self:flex-start;font:900 .72rem var(--fb);letter-spacing:.12em;text-transform:uppercase;padding:.3em .75em;border-radius:10px;border:2px solid var(--ink);background:var(--sun)}
+.tag.sea{background:#9fdcff}.tag.new{background:var(--pink);color:#fff}
+
+/* ---- the cast: a rail on phones ---- */
+.rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.who{overflow:hidden;display:flex;flex-direction:column}
+.who img{aspect-ratio:4/3;object-fit:cover;width:100%;border-bottom:var(--line) solid var(--ink)}
+.who .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.who .role{font:900 .78rem var(--fb);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.who q{font:700 1rem/1.5 var(--fb);quotes:"“" "”";color:var(--ink)}
+.hear{margin-top:auto;align-self:flex-start;font-size:.98rem;padding:.5em .95em;border-radius:14px;box-shadow:0 3px 0 var(--ink)}
+.hear .bars{display:none;gap:2px;align-items:flex-end;height:1em}
+.hear .bars i{width:3px;background:currentColor;border-radius:2px;animation:eq .7s ease-in-out infinite}
+.hear .bars i:nth-child(2){animation-delay:.15s}.hear .bars i:nth-child(3){animation-delay:.3s}
+@keyframes eq{0%,100%{height:30%}50%{height:100%}}
+.hear.on{background:var(--pink);color:#fff}.hear.on .bars{display:inline-flex}.hear.on svg{display:none}
+
+/* ---- ways to play ---- */
+.play{background:var(--cream);border-block:var(--line) solid var(--ink)}
+.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.mode{overflow:hidden;display:flex;flex-direction:column;background:#fff}
+.mode img{aspect-ratio:16/10;object-fit:cover;width:100%;border-bottom:var(--line) solid var(--ink)}
+.mode .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px}
+.extras{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:18px 22px;align-items:center;padding:20px 22px;background:var(--sand)}
+.extras .list{display:flex;flex-wrap:wrap;gap:8px}
+.extras .list span{font:800 .92rem var(--fb);padding:.35em .8em;border-radius:12px;border:2px solid var(--ink);background:var(--cream)}
+
+/* ---- the herd ---- */
+.herd{overflow:hidden}
+.parade{position:relative;margin-block:8px 34px;-webkit-mask:linear-gradient(90deg,#0000,#000 6%,#000 94%,#0000);mask:linear-gradient(90deg,#0000,#000 6%,#000 94%,#0000)}
+.parade .row{display:flex;gap:6px;width:max-content;animation:march 60s linear infinite}
+.parade:hover .row{animation-play-state:paused}
+.parade img{width:clamp(130px,17vw,190px);flex:none}
+@keyframes march{to{transform:translateX(-50%)}}
+.mind{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px;align-items:center}
 .points{display:grid;gap:14px;margin:20px 0 0;padding:0}
-.points li{list-style:none;padding-left:30px;position:relative}
-.points li::before{content:"";position:absolute;left:0;top:.35em;width:16px;height:16px;border-radius:5px;border:3px solid var(--bd);background:var(--sun)}
+.points li{list-style:none;padding-left:32px;position:relative}
+.points li::before{content:"";position:absolute;left:0;top:.3em;width:18px;height:18px;border-radius:6px;border:var(--line) solid var(--ink);background:var(--sun)}
+.scroll{padding:22px 24px}
+.axes{display:grid;grid-template-columns:auto 1fr auto;gap:10px 14px;align-items:center;font:900 .95rem var(--fb);margin-top:14px}
+.axes .bar{height:15px;border:2px solid var(--ink);border-radius:8px;background:var(--sand);overflow:hidden}
+.axes .bar i{display:block;height:100%;background:var(--leaf)}
+.axes .bar.wary i{background:var(--sky2)}.axes .bar.cur i{background:var(--sun)}.axes .bar.kind i{background:var(--rose)}
+.axes .n{font-variant-numeric:tabular-nums;color:var(--ink2)}
+.arch{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.arch span{font:900 .84rem var(--fb);padding:.3em .75em;border-radius:10px;border:2px solid var(--ink);background:var(--sand)}
+.arch span.on{background:var(--sun)}
+.note{margin-top:14px;font:800 .85rem var(--fb);color:var(--ink2)}
 
-.phone{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:48px;align-items:center}
-.frame{border:6px solid var(--bd);border-radius:38px;padding:8px;background:#11161f;box-shadow:0 6px 0 var(--bd);max-width:300px;margin-inline:auto}
-.frame img{border-radius:28px;aspect-ratio:390/844;object-fit:cover;width:100%}
-.keys{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;margin-top:22px;font-size:.98rem}
-.keys kbd{font:800 .8rem var(--fb);background:var(--bd);color:var(--panel);border-radius:7px;padding:3px 8px;justify-self:start;white-space:nowrap}
-.keys span{color:var(--dim)}
+/* ---- controls ---- */
+.controls{background:linear-gradient(180deg,var(--sand),#f1dcae)}
+.phone{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:52px;align-items:center}
+.device{border:7px solid var(--ink);border-radius:40px;padding:8px;background:#121821;box-shadow:var(--lift);max-width:290px;margin-inline:auto}
+.device img{border-radius:30px;aspect-ratio:390/844;object-fit:cover;width:100%}
+.keys{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin-top:22px;font-size:.98rem}
+.keys kbd{font:900 .8rem var(--fb);background:var(--ink);color:var(--cream);border-radius:8px;padding:4px 9px;justify-self:start;align-self:start;margin-top:2px;white-space:nowrap}
+.keys span{color:var(--ink2)}
+.touch{display:grid;gap:10px;margin-top:18px}
+.touch div{display:flex;gap:12px;align-items:flex-start}
+.touch b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--sun);border:var(--line) solid var(--ink);display:grid;place-items:center;font:700 .95rem var(--fh)}
 
-.final{text-align:center;padding:40px 24px}
-.final h2{margin-bottom:14px}
-.final p{color:var(--dim);max-width:36em;margin:0 auto}
+/* ---- the last call ---- */
+.final{text-align:center;padding:clamp(30px,5vw,48px) clamp(20px,4vw,40px);background:var(--pink);color:#fff;position:relative;overflow:hidden}
+.final h2{text-shadow:0 3px 0 var(--ink);margin-bottom:12px}
+.final p{max-width:34em;margin:0 auto;color:#fff5fb}
 .final .ctas{justify-content:center}
+.final .peek{position:absolute;width:min(200px,34vw);right:-16px;bottom:-12px;transform:rotate(-6deg);opacity:.98}
+footer{background:var(--ink);color:#e9d9c3;padding-block:26px calc(26px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;font:800 .9rem var(--fb)}
+footer .social{display:flex;gap:16px}
+footer a{color:#fff;text-decoration:none}
+footer a:hover{text-decoration:underline}
 
-footer{border-top:3px solid var(--bd);background:var(--panel);padding-block:26px}
-footer .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between;font:700 .9rem var(--fb);color:var(--dim)}
-footer .social{display:flex;gap:14px}
-footer .social a{text-decoration:none;font-weight:800;color:var(--txt)}
+/* a Play bar that stays in reach on a phone, once the hero's button has scrolled away */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(180deg,#f6e7c400,var(--sand) 38%);transform:translateY(110%);transition:transform .25s}
+.dock.on{transform:none}
+.dock .btn{width:100%}
 
-@media (max-width:860px){
-  .hero-grid,.scroll,.phone{grid-template-columns:minmax(0,1fr)}
-  .modes{grid-template-columns:minmax(0,1fr)}
-  .shot{transform:none}
-  nav .links{display:none}
-  section{padding-block:46px}
+@media (max-width:980px){
+  .rail{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+@media (max-width:760px){
+  nav{padding-block:6px 10px}
+  nav .links{display:none}
+  .hero{padding-bottom:84px}
+  .mind,.phone{grid-template-columns:minmax(0,1fr)}
+  /* on a phone the hero reads badge, headline, the game itself, Play: all in the first screen, the blurb after */
+  .hero-grid{display:flex;flex-direction:column;gap:0;text-align:center}
+  .hero .copy{display:contents}
+  .badge{order:1;align-self:center;width:108px}
+  .hero h1{order:2;margin:10px 0 0}
+  .art{order:3;margin:26px 6px 0}
+  .hero .ctas{order:4;margin:30px 0 10px}
+  .fine{order:5}
+  .hero .lede{order:6;margin:18px auto 0}
+  .ctas{justify-content:center}
+  .ctas .btn{flex:1 1 100%}
+  .art .sticker{width:30%;left:-5%;bottom:-18%}
+  .art .bubble{font-size:.8rem;top:-18px;right:2%}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats li:nth-child(3){border-left:0}
+  .stats li:nth-child(n+3){border-top:2px dashed #24171033}
+  .chapters,.modes{grid-template-columns:minmax(0,1fr)}
+  /* the cast and the ways to play swipe sideways, a card and a bit in view */
+  .rail,.modes{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:4px 16px 18px;margin-inline:-16px;scrollbar-width:none}
+  .rail::-webkit-scrollbar,.modes::-webkit-scrollbar{display:none}
+  .rail>*,.modes>*{flex:0 0 82%;scroll-snap-align:center}
+  .extras{grid-template-columns:minmax(0,1fr)}
+  .device{max-width:250px}
+  .dock{display:block}
+  footer{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+  .final .peek{width:120px;right:-20px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn,.dock{transition:none}
+  .badge,.art .sticker,.cloud,.parade .row,.hear .bars i{animation:none}
+  .parade{overflow-x:auto}
+}
 </style>
 </head>
 <body>
 
 <header class="hero" id="top">
+  <i class="cloud c1" aria-hidden="true"></i><i class="cloud c2" aria-hidden="true"></i>
   <div class="wrap">
     <nav>
-      <a class="brand" href="#top"><img src="brand/icon-128.png" alt="" width="44" height="44"><b>CLI Tortoises</b></a>
-      <div class="links"><a href="#modes">What's inside</a><a href="#scroll">The Scroll</a><a href="#controls">How to play</a></div>
+      <a class="brand" href="#top"><img src="brand/icon-128.png" alt="" width="42" height="42"><b>CLI Tortoises</b></a>
+      <div class="links"><a href="#world">The world</a><a href="#cast">The cast</a><a href="#modes">Ways to play</a><a href="#herd">The herd</a><a href="#controls">How to play</a></div>
     </nav>
     <div class="hero-grid">
       <div class="copy">
-        <p class="eyebrow">Playable demo · in your browser</p>
+        <img class="badge" src="brand/cli-tortoises-logo.png" width="640" height="640" alt="C.L.I. Tortoises">
         <h1>Ride a tortoise that remembers what you do together.</h1>
-        <p class="lede">Explore the island of Shellhaven on tortoiseback. Battle the wild tortoises and tame them into your stable,
-          play the Shell Duel at the card table, and lead a people of turtles on the Wartles war table. Every choice is
-          written into your tortoise's Scroll, and changes who it becomes.</p>
+        <p class="lede">Explore a sea of turtle islands on tortoiseback. Battle and tame the wild ones, wake the oldest turtle
+          in the sea, and ride her across to a land nobody has walked since the Great Tide.</p>
         <div class="ctas">
-          <a class="btn primary" id="play" href="game.html?demo"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span>Play the demo</span></a>
+          <a class="btn go" id="play" href="game.html?demo" data-play><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span>Play free</span></a>
           <a class="btn" href="game.html">Start from the beginning</a>
         </div>
-        <p class="fine">Phone or computer · nothing to install · no wallet · your progress stays in this browser</p>
+        <p class="fine">Phone or computer · nothing to install · no wallet · it saves as you play</p>
       </div>
-      <figure class="shot glass">
-        <img src="shots/island.jpg" width="1600" height="900" alt="Riding a tortoise past the barn and campfire at Shellhaven, with two stable tortoises following and a wild one in a bowler hat nearby">
-        <figcaption>Shellhaven: your mount, two stablemates, and a wild one in a bowler hat.</figcaption>
+      <figure class="art">
+        <div class="frame card"><img class="shot" src="shots/island.jpg" width="1600" height="900" alt="Riding a tortoise across Shellhaven, two tamed tortoises following"></div>
+        <span class="bubble" aria-hidden="true">Every choice goes in its Scroll</span>
+        <img class="sticker" src="herd/777.webp" width="384" height="317" alt="">
       </figure>
     </div>
   </div>
 </header>
 
+<div class="facts wrap">
+  <ul class="stats card" aria-label="At a glance">
+    <li><b>65</b><span>turtle islands at sea</span></li>
+    <li><b>2</b><span>chapters, two lands</span></li>
+    <li><b>4</b><span>ways to play</span></li>
+    <li><b>10,000</b><span>tortoises, no two alike</span></li>
+  </ul>
+</div>
+
 <main>
-  <section id="modes">
+  <section class="world" id="world">
     <div class="wrap">
-      <div class="sec-head">
-        <p class="eyebrow">What's inside</p>
-        <h2>One island, four ways to play</h2>
-        <p>It's the whole game, running in your browser. Every NFT tortoise has its own traits (shell, skin, hat, scarf,
-          shoes), and you'll meet them roaming, fight them and ride them.</p>
+      <div class="head">
+        <p class="eyebrow">The world</p>
+        <h2>A sea of turtle islands</h2>
+        <p class="lede dim">Shellhaven is home: a camp, a barn of sleeping tortoises, an Elder by the fire. Past its beaches the sea
+          is full of islands, and every one of them is a turtle.</p>
       </div>
-      <div class="modes">
-        <article class="mode glass">
-          <img src="shots/island.jpg" width="1600" height="900" loading="lazy" alt="Tortoises gathered by the campfire at Shellhaven">
+      <div class="chapters">
+        <article class="chapter card">
+          <img src="shots/deep.jpg" width="1600" height="900" loading="lazy" alt="Old Deepbreath asleep at sea: forest, terraces and a waterfall on her shell, her great head resting on the sand">
           <div class="body">
-            <span class="tag">Explore</span>
-            <h3>Ride the island</h3>
-            <p>Walk, sprint and slide in your shell across Shellhaven. Talk to Elder Mossback, trade with the giant chicken
-              merchants, dive for wrecks, and take on quests for the island's people.</p>
+            <span class="tag">Chapter I</span>
+            <h3>Shellhaven and the sea</h3>
+            <p class="dim">Wake the stable, commune with the Echo Stones, and sail out among the islands round Shellhaven. Out past
+              them all sleeps Old Deepbreath, the oldest turtle in the sea. Give her stones their rhythm, and she wakes.</p>
           </div>
         </article>
-        <article class="mode glass">
-          <img src="shots/battle.jpg" width="1600" height="900" loading="lazy" alt="A wild tortoise battle with move cards in hand">
+        <article class="chapter card">
+          <img src="shots/harbour.jpg" width="1600" height="900" loading="lazy" alt="The drowned harbour of Ebbmouth on the sand, Old Pagurus the hermit crab among its ruins">
           <div class="body">
-            <span class="tag">Battle and tame</span>
-            <h3>Wild tortoise battles</h3>
-            <p>Your tortoise's moves are cards, and you draw a fresh hand every turn. Wear a wild one down and win it over,
-              and it joins your stable and follows you around the island.</p>
-          </div>
-        </article>
-        <article class="mode glass">
-          <img src="shots/duel.jpg" width="1600" height="900" loading="lazy" alt="The Shell Duel card table with tortoises facing off">
-          <div class="body">
-            <span class="tag">Cards</span>
-            <h3>The Shell Duel</h3>
-            <p>A card game at the table, with your stable as the deck. Play tortoises, snacks and Echo Scrolls, and knock out
-              your rival's side before they knock out yours.</p>
-          </div>
-        </article>
-        <article class="mode glass">
-          <img src="shots/wartles.jpg" width="1600" height="900" loading="lazy" alt="The Wartles war table, an island battlefield of turtle armies">
-          <div class="body">
-            <span class="tag">Strategy</span>
-            <h3>Wartles &amp; Wartioses</h3>
-            <p>Lead the Hearthshell Legion, the Mire Pact or the Tidecallers on a war table: dig shards, raise an army,
-              fend off the Clatter's crab raids, and play the campaign or a skirmish.</p>
-            <p class="go"><a href="game.html#wartles">Open the war table</a></p>
+            <span class="tag new">Chapter II</span>
+            <h3>The Ebblands</h3>
+            <p class="dim">She carries you across on her back. When she breathes out, the sea goes down and a land comes up out of
+              it: a blank map, a drowned harbour, the Wreck on the Hill and the Old Beacon.</p>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <section id="scroll">
-    <div class="wrap scroll">
+  <section id="cast">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">The cast</p>
+        <h2>Everyone you meet has a voice</h2>
+        <p class="lede dim">The island's people speak their lines aloud. Tap to hear them.</p>
+      </div>
+      <div class="rail">
+        <article class="who card">
+          <img src="shots/mossback.jpg" width="1600" height="900" loading="lazy" style="object-position:42% 50%" alt="Elder Mossback by the campfire, in a bowler hat and scarf">
+          <div class="body">
+            <p class="role">Shellhaven's Elder</p>
+            <h3>Elder Mossback</h3>
+            <q>Ah… you're awake. Good. Most of Shellhaven isn't.</q>
+            <button class="btn hear" type="button" data-voice="audio/elder/e3fb3a03c.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
+          </div>
+        </article>
+        <article class="who card">
+          <img src="shots/shrimp.jpg" width="1600" height="900" loading="lazy" style="object-position:48% 60%" alt="Dr. Bubba Gump Shrimp, a pistol shrimp, at his cleaning station on the shore">
+          <div class="body">
+            <p class="role">The cleaning station</p>
+            <h3>Dr. Bubba Gump Shrimp</h3>
+            <q>Next! Oh, nobody's next. Welcome to the cleaning station. Doctor Bubba Gump Shrimp, at your service.</q>
+            <button class="btn hear" type="button" data-voice="audio/shrimp/ed39d97a5.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
+          </div>
+        </article>
+        <article class="who card">
+          <img src="shots/pagurus.jpg" width="1600" height="900" loading="lazy" style="object-position:40% 50%" alt="Old Pagurus, a hermit crab, in the ruins of a drowned harbour">
+          <div class="body">
+            <p class="role">Keeper of the bells</p>
+            <h3>Old Pagurus</h3>
+            <q>Oh! A walker. On my harbour! Well, it's not much of a harbour now, with the sea gone off and left it.</q>
+            <button class="btn hear" type="button" data-voice="audio/pagurus/ed2262b7c.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
+          </div>
+        </article>
+        <article class="who card">
+          <img src="shots/eye.jpg" width="1600" height="900" loading="lazy" style="object-position:62% 45%" alt="Old Deepbreath's eye, closed, in a head the size of a hill">
+          <div class="body">
+            <p class="role">The oldest turtle</p>
+            <h3>Old Deepbreath</h3>
+            <q>Ahh. Small ones, on my back again. It has been a long time.</q>
+            <button class="btn hear" type="button" data-voice="audio/deep/e6c7d8b25.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear her</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="play" id="modes">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Ways to play</p>
+        <h2>Ride it, battle it, deal it, command it</h2>
+      </div>
+      <div class="modes">
+        <article class="mode card">
+          <img src="shots/battle.jpg" width="1600" height="900" loading="lazy" alt="A wild tortoise battle, move cards in hand">
+          <div class="body">
+            <span class="tag">Battle and tame</span>
+            <h3>Wild tortoise battles</h3>
+            <p class="dim">Your tortoise's moves are cards, a fresh hand every turn. Wear a wild one down and win it over, and it
+              joins your stable and follows you about.</p>
+          </div>
+        </article>
+        <article class="mode card">
+          <img src="shots/duel.jpg" width="1600" height="900" loading="lazy" alt="The Shell Duel card table, tortoises facing off">
+          <div class="body">
+            <span class="tag sea">Cards</span>
+            <h3>The Shell Duel</h3>
+            <p class="dim">A card game at the table with your stable as the deck: tortoises, snacks and Echo Scrolls. Knock out
+              your rival's side before they knock out yours.</p>
+          </div>
+        </article>
+        <article class="mode card">
+          <img src="shots/wartles.jpg" width="1600" height="900" loading="lazy" alt="The Wartles war table, an army of turtles by its camp">
+          <div class="body">
+            <span class="tag new">Strategy</span>
+            <h3>Wartles &amp; Wartioses</h3>
+            <p class="dim">Lead a people of turtles on a war table: dig shards, raise an army, fend off the Clatter's crab raids.
+              A campaign of fifteen missions, or a skirmish.</p>
+          </div>
+        </article>
+      </div>
+      <div class="extras card">
+        <h3>And in between</h3>
+        <div class="list"><span>Shell Slide</span><span>Downhill Run</span><span>Shell Bowling</span><span>Shell Pinball</span><span>Diving for wrecks</span><span>Chicken merchants</span><span>Crafting</span><span>On foot with a bow</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="herd" id="herd">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">The herd</p>
+        <h2>10,000 tortoises. No two alike.</h2>
+        <p class="lede dim">Every tortoise in the game is one of the CLI Tortoises: its own shell, print, skin, hat, neckwear and
+          shoes. You'll meet them roaming the islands, battle them, and ride the ones you tame.</p>
+      </div>
+    </div>
+    <div class="parade" aria-hidden="true">
+      <div class="row">
+        <img src="herd/7.webp" width="384" height="317" alt=""><img src="herd/42.webp" width="384" height="317" alt=""><img src="herd/101.webp" width="384" height="317" alt=""><img src="herd/333.webp" width="384" height="317" alt=""><img src="herd/777.webp" width="384" height="317" alt=""><img src="herd/1024.webp" width="384" height="317" alt=""><img src="herd/1337.webp" width="384" height="317" alt=""><img src="herd/2048.webp" width="384" height="317" alt=""><img src="herd/3141.webp" width="384" height="317" alt=""><img src="herd/4096.webp" width="384" height="317" alt=""><img src="herd/6006.webp" width="384" height="317" alt=""><img src="herd/6969.webp" width="384" height="317" alt=""><img src="herd/7777.webp" width="384" height="317" alt=""><img src="herd/8888.webp" width="384" height="317" alt=""><img src="herd/9393.webp" width="384" height="317" alt=""><img src="herd/9999.webp" width="384" height="317" alt="">
+      </div>
+    </div>
+    <div class="wrap mind">
       <div>
-        <p class="eyebrow">The Scroll</p>
-        <h2>Its mind is written by what you do</h2>
+        <p class="eyebrow" style="color:var(--pink)">The Scroll</p>
+        <h2 style="margin-top:10px">Its mind is written by what you do</h2>
         <ul class="points">
-          <li>Every tortoise carries a small opcode mind, seeded from its token: how bold, wary and curious it is from the start.</li>
+          <li>Every tortoise carries a small mind, seeded from its token: how bold, wary and curious it starts out.</li>
           <li>Your choices drift it. Spare a foe or press the attack, help a stranger or walk on: each one is sealed into its Scroll.</li>
           <li>The Scroll only grows, and it replays to the same root anywhere, so its history is provably its own.</li>
-          <li>The Elder reads it, the story is told from it, and your tortoise grows into a Champion, a Guardian, a Seeker, a Hermit, a Renegade or a Wanderer.</li>
+          <li>The Elder reads it, and your tortoise grows into a Champion, a Guardian, a Seeker, a Hermit, a Renegade or a Wanderer.</li>
         </ul>
       </div>
-      <div class="glass">
-        <p class="eyebrow">Journal · Scroll</p>
-        <h3 style="margin:6px 0 16px">This one is a Seeker</h3>
+      <div class="scroll card">
+        <p class="eyebrow" style="color:var(--ink2)">Journal · Scroll</p>
+        <h3 style="margin-top:6px">This one is a Seeker</h3>
         <div class="axes">
           <span>bold</span><div class="bar"><i style="width:47%"></i></div><span class="n">120</span>
           <span>wary</span><div class="bar wary"><i style="width:35%"></i></div><span class="n">89</span>
@@ -221,26 +422,27 @@ footer .social a{text-decoration:none;font-weight:800;color:var(--txt)}
           <span>kind</span><div class="bar kind"><i style="width:56%"></i></div><span class="n">142</span>
         </div>
         <div class="arch"><span>Champion</span><span>Guardian</span><span class="on">Seeker</span><span>Hermit</span><span>Renegade</span><span>Wanderer</span></div>
-        <p class="note">An example reading. In the game, the Journal's Scroll tab shows your own tortoise's.</p>
+        <p class="note">An example. In the game, the Journal's Scroll tab shows your own tortoise's.</p>
       </div>
     </div>
   </section>
 
-  <section id="controls">
+  <section class="controls" id="controls">
     <div class="wrap phone">
-      <div class="frame"><img src="shots/phone.jpg" width="780" height="1688" loading="lazy" alt="The game on a phone, in portrait, with touch controls"></div>
+      <div class="device"><img src="shots/phone.jpg" width="780" height="1688" loading="lazy" alt="The game on a phone, in portrait, with its touch controls"></div>
       <div>
-        <p class="eyebrow">How to play</p>
-        <h2>Made for one thumb, fine with a keyboard</h2>
-        <p style="margin-top:12px;color:var(--dim)">On a phone, drag to steer and tap to do things. The demo opens with a card
-          that shows the touch controls. On a computer:</p>
+        <p class="eyebrow" style="color:var(--pink)">How to play</p>
+        <h2 style="margin:10px 0 12px">Made for one thumb, fine with a keyboard</h2>
+        <div class="touch">
+          <div><b>1</b><p class="dim">Drag anywhere to steer. Tap a thing to walk there and do the obvious: talk, chop, check.</p></div>
+          <div><b>2</b><p class="dim">Hold on something for every option. Double-tap the screen to hop out of a Shell Slide.</p></div>
+        </div>
         <div class="keys">
           <kbd>W A S D</kbd><span>Ride (double-tap W to sprint)</span>
           <kbd>Mouse drag</kbd><span>Turn the camera; the wheel zooms</span>
-          <kbd>Click</kbd><span>Walk there, or do the obvious thing: check, chop, talk</span>
-          <kbd>E · Space</kbd><span>Interact; Space twice for a Shell Slide</span>
+          <kbd>Click</kbd><span>Walk there and do the obvious thing</span>
+          <kbd>Space twice</kbd><span>Shell Slide (double-click to hop out)</span>
           <kbd>F</kbd><span>Get down and go on foot</span>
-          <kbd>C</kbd><span>Shell Duel</span>
           <kbd>B · J · N</kbd><span>Stable · Journal · Map</span>
         </div>
       </div>
@@ -249,11 +451,12 @@ footer .social a{text-decoration:none;font-weight:800;color:var(--txt)}
 
   <section>
     <div class="wrap">
-      <div class="final glass">
+      <div class="final card">
+        <img class="peek" src="herd/9999.webp" width="384" height="317" alt="">
         <h2>Your tortoise is waiting on the beach</h2>
-        <p>The demo is the whole game, and it saves as you play. Come back on the same browser and it picks up where you left off.</p>
+        <p>It's the whole game, free, and it saves as you play. Come back on the same browser and it picks up where you left off.</p>
         <div class="ctas">
-          <a class="btn primary" href="game.html?demo" data-play><span>Play the demo</span></a>
+          <a class="btn go" id="play2" href="game.html?demo" data-play><span>Play free</span></a>
           <a class="btn" href="game.html#wartles">Open the war table</a>
         </div>
       </div>
@@ -263,20 +466,51 @@ footer .social a{text-decoration:none;font-weight:800;color:var(--txt)}
 
 <footer>
   <div class="wrap">
-    <span>CLI Tortoises · NFT tortoises with minds of their own</span>
+    <span>CLI Tortoises · 10,000 tortoises with minds of their own</span>
     <span class="social"><a href="https://discord.gg/clitortoises" rel="noopener">Discord</a><a href="https://twitter.com/clitortoises" rel="noopener">Twitter</a></span>
   </div>
 </footer>
 
+<div class="dock" id="dock"><a class="btn go" href="game.html?demo" data-play><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span>Play free</span></a></div>
+
 <script>
-// someone with a saved game in this browser goes straight back to it
 (function () {
+  // someone with a saved game in this browser goes straight back to it
   var saved = false;
   try { saved = !!localStorage.getItem("cli-tortoises.v3"); } catch (e) { saved = false; }
-  if (!saved) return;
-  var label = document.querySelector("#play span");
-  if (label) label.textContent = "Continue your island";
-  document.querySelectorAll("#play, [data-play]").forEach(function (a) { a.setAttribute("href", "game.html"); });
+  if (saved) {
+    document.querySelectorAll("[data-play]").forEach(function (a) {
+      a.setAttribute("href", "game.html");
+      var s = a.querySelector("span"); if (s && a.id === "play") s.textContent = "Continue your island";
+    });
+  }
+
+  // the Play bar on a phone shows while neither of the page's own Play buttons is in sight
+  var dock = document.getElementById("dock"), seen = {};
+  if (dock && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { seen[e.target.id] = e.isIntersecting; });
+      dock.classList.toggle("on", !seen.play && !seen.play2);
+    }, { threshold: 0 });
+    ["play", "play2"].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
+
+  // the cast's voices: one at a time, from the game's own recordings
+  var playing = null, btnOn = null;
+  document.querySelectorAll("[data-voice]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (btnOn === b && playing && !playing.paused) { playing.pause(); b.classList.remove("on"); btnOn = null; return; }
+      if (playing) playing.pause();
+      if (btnOn) btnOn.classList.remove("on");
+      playing = new Audio(b.getAttribute("data-voice")); btnOn = b; b.classList.add("on");
+      playing.addEventListener("ended", function () { b.classList.remove("on"); if (btnOn === b) btnOn = null; });
+      playing.play().catch(function () { b.classList.remove("on"); btnOn = null; });
+    });
+  });
+
+  // the parade loops seamlessly: a second copy of the herd follows the first
+  var row = document.querySelector(".parade .row");
+  if (row) row.innerHTML += row.innerHTML;
 })();
 </script>
 </body>
