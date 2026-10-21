@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CLI Tortoises</title>
-<meta name="description" content="Ride a tortoise around a sea of turtle islands. Battle and tame the wild ones, meet a voiced cast, wake the oldest turtle in the sea and cross to a new land. Free, in your browser, on phone or computer.">
-<meta property="og:title" content="CLI Tortoises: play free in your browser">
-<meta property="og:description" content="Ride, battle, tame and raise a tortoise whose Scroll remembers everything you do together. A sea of turtle islands, a voiced cast, two chapters. Phone or computer.">
+<title>CLI Tortoises: tame a tortoise, ride the islands</title>
+<meta name="description" content="A free creature-taming adventure in your browser. Battle and tame wild tortoises, ride out across a sea where every island is a turtle, and raise a tortoise that remembers every choice you make. Phone or computer.">
+<meta property="og:title" content="CLI Tortoises: tame a tortoise, ride the islands, wake the sea">
+<meta property="og:description" content="A free creature-taming adventure. Every island is a turtle, and your tortoise remembers every choice you make together. Play in your browser on phone or computer.">
 <meta property="og:image" content="https://tensorrent.github.io/CLI-Tortoises-Demo/shots/island.jpg">
 <meta name="theme-color" content="#5cb7ef">
 <link rel="icon" type="image/png" href="brand/icon-128.png">
 <link rel="apple-touch-icon" href="brand/icon-128.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@700;800;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap">
 <style>
 :root{
   --ink:#241710;--ink2:#5b4636;--cream:#fff7e6;--sand:#f6e7c4;--sand2:#eed8a6;
@@ -26,17 +26,22 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--sand);color:var(--ink);font:700 1rem/1.6 var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{margin:0;background:var(--sand);color:var(--ink);font:600 1.0625rem/1.6 var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 p{margin:0}
-h1,h2,h3{font-family:var(--fh);font-weight:700;line-height:1.05;text-wrap:balance;margin:0;letter-spacing:-.005em}
-h1{font-size:clamp(2.2rem,4.6vw,3.5rem)}
-h2{font-size:clamp(1.9rem,5.2vw,3rem)}
-h3{font-size:clamp(1.3rem,3.2vw,1.55rem)}
+h1,h2,h3{font-family:var(--fh);font-weight:700;line-height:1.02;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(2.4rem,4.3vw,3.6rem)}
+h1 span{display:block}
+h2{font-size:clamp(2.1rem,4.6vw,3.4rem)}
+h3{font-size:clamp(1.3rem,2.6vw,1.6rem);line-height:1.1}
+/* the second half of a headline: the payoff, in the accent colour */
+h1 em,h2 em{font-style:normal;color:var(--pink);display:block}
+.hero h1 em{color:var(--sun)}
 .wrap{max-width:1180px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
-.eyebrow{font:900 .78rem var(--fb);letter-spacing:.16em;text-transform:uppercase}
-.lede{font-size:clamp(1.05rem,2.4vw,1.2rem);max-width:36em}
+.kicker{display:inline-flex;align-items:center;gap:.6em;font:900 .8rem var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.kicker b{font:700 .95rem var(--fh);letter-spacing:0;color:var(--ink);background:var(--sun);border:2px solid var(--ink);border-radius:9px;padding:.05em .45em}
+.lede{font-size:clamp(1.1rem,2.2vw,1.28rem);line-height:1.5;max-width:31em}
 .dim{color:var(--ink2)}
 
 /* buttons: chunky, like the game's own */
@@ -46,11 +51,11 @@ h3{font-size:clamp(1.3rem,3.2vw,1.55rem)}
 .btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--ink)}
 .btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
 .btn.go{background:var(--sun);font-size:1.32rem;padding:.78em 1.5em}
-.btn.pink{background:var(--pink);color:#fff;text-shadow:0 2px 0 #0004}
+.btn.sm{font-size:1rem;padding:.45em .95em;border-radius:14px;box-shadow:0 3px 0 var(--ink)}
 .btn svg{width:1.05em;height:1.05em;flex:none}
 .card{background:var(--cream);border:var(--line) solid var(--ink);border-radius:var(--r);box-shadow:var(--lift)}
 
-/* ---- the hero: sky over the sea, the badge, one big Play ---- */
+/* ---- the hero: sky over the sea, the headline, one big Play ---- */
 .hero{position:relative;overflow:hidden;color:#fff;
   background:radial-gradient(120% 70% at 85% 0%,#fff8 0,#fff0 55%),linear-gradient(180deg,var(--sky1) 0%,var(--sky2) 38%,var(--sky3) 72%,var(--sea) 100%);
   padding-block:max(12px,env(safe-area-inset-top,0px)) 96px}
@@ -67,82 +72,57 @@ nav{position:relative;z-index:2;display:flex;align-items:center;justify-content:
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 .brand img{width:42px;height:42px;border-radius:50%;border:var(--line) solid var(--ink);background:var(--pink)}
 .brand b{font:700 1.25rem var(--fh);color:#fff;text-shadow:0 2px 0 var(--ink)}
-nav .links{display:flex;gap:4px}
-nav .links a{font:900 .86rem var(--fb);text-decoration:none;color:#fff;padding:7px 11px;border-radius:12px;text-shadow:0 1px 2px #0006}
-nav .links a:hover{background:#ffffff2e}
-.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:44px;align-items:center}
-.badge{width:clamp(120px,13vw,168px);aspect-ratio:1;filter:drop-shadow(0 6px 0 #0c3a6055);animation:bob 5s ease-in-out infinite}
+nav .links{display:flex;align-items:center;gap:4px}
+nav .links a:not(.btn){font:900 .86rem var(--fb);text-decoration:none;color:#fff;padding:7px 11px;border-radius:12px;text-shadow:0 1px 2px #0006}
+nav .links a:not(.btn):hover{background:#ffffff2e}
+nav .links .btn{margin-left:8px;background:var(--sun)}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:44px;align-items:center}
+.badge{width:clamp(84px,8vw,104px);aspect-ratio:1;filter:drop-shadow(0 6px 0 #0c3a6055);animation:bob 5s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-6px) rotate(-2deg)}}
-.hero h1{margin:16px 0 14px;text-shadow:0 3px 0 var(--ink),0 0 18px #0c3a6044}
+.hero .pill{display:inline-block;margin-top:14px;font:900 .8rem var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--cream);border:2px solid var(--ink);border-radius:999px;padding:.35em .9em;box-shadow:0 3px 0 var(--ink)}
+.hero h1{margin:14px 0 18px;text-shadow:0 3px 0 var(--ink),0 0 18px #0c3a6044}
 .hero .lede{color:#f3fbff;text-shadow:0 1px 2px #0007}
-.ctas{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 12px}
-.fine{font:800 .9rem var(--fb);color:#e8f6ff;text-shadow:0 1px 2px #0006}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;padding:0;list-style:none;font:800 .92rem var(--fb);color:#e8f6ff;text-shadow:0 1px 2px #0006}
+.chips li{display:flex;align-items:center;gap:6px}
+.chips li::before{content:"";width:16px;height:16px;flex:none;border-radius:50%;background:var(--leaf) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.3l2.6 2.5L12 5.4' fill='none' stroke='%23fff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100%;border:2px solid var(--ink)}
 .art{position:relative;margin:0}
 .art .frame{padding:9px;transform:rotate(1.6deg)}
 .art img.shot{border-radius:13px;border:2px solid var(--ink);aspect-ratio:16/9;object-fit:cover;width:100%}
 .art .sticker{position:absolute;width:38%;max-width:220px;left:-7%;bottom:-13%;transform:rotate(-7deg);filter:drop-shadow(0 6px 0 #0c3a6066);animation:bob 4.2s ease-in-out infinite reverse}
 .art .bubble{position:absolute;right:4%;top:-20px;background:var(--cream);color:var(--ink);border:var(--line) solid var(--ink);border-radius:18px;
-  padding:.45em .8em;font:800 .92rem var(--fb);box-shadow:0 4px 0 var(--ink);transform:rotate(-2deg)}
+  padding:.45em .8em;font:800 .95rem var(--fb);box-shadow:0 4px 0 var(--ink);transform:rotate(-2deg)}
 .art .bubble::after{content:"";position:absolute;left:22px;bottom:-12px;width:16px;height:16px;background:var(--cream);border-right:var(--line) solid var(--ink);border-bottom:var(--line) solid var(--ink);transform:rotate(45deg)}
 
 /* ---- facts: one strip, tucked over the tide line ---- */
 .facts{position:relative;z-index:3;margin-top:-34px}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;overflow:hidden}
-.stats li{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px 10px 14px;gap:2px}
+.stats li{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px 10px 14px;gap:4px}
 .stats li+li{border-left:2px dashed #24171033}
-.stats b{font:700 clamp(1.6rem,3.4vw,2.2rem)/1 var(--fh);color:var(--pink)}
-.stats span{font:800 .9rem/1.3 var(--fb);color:var(--ink2)}
+.stats b{font:700 clamp(1.7rem,3.4vw,2.3rem)/1 var(--fh);color:var(--pink)}
+.stats span{font:800 .88rem/1.25 var(--fb);color:var(--ink2)}
 
-section{padding-block:clamp(56px,9vw,96px)}
-.head{max-width:44em;margin-bottom:clamp(26px,4vw,40px)}
-.head h2{margin:10px 0 12px}
-.head .eyebrow{color:var(--pink)}
+section{padding-block:clamp(56px,9vw,104px)}
+.head{max-width:40em;margin-bottom:clamp(28px,4vw,44px)}
+.head h2{margin:12px 0 14px}
+.head.mid{margin-inline:auto;text-align:center}
+.head.mid .lede{margin-inline:auto}
 
-/* ---- the world: chapters ---- */
-.world{background:linear-gradient(180deg,var(--sand) 0,#e6f4fb 18%,#cfeaf8 100%)}
-.chapters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
-.chapter{overflow:hidden;display:flex;flex-direction:column}
-.chapter img{aspect-ratio:16/10;object-fit:cover;width:100%;border-bottom:var(--line) solid var(--ink)}
-.chapter .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px}
-.tag{align-self:flex-start;font:900 .72rem var(--fb);letter-spacing:.12em;text-transform:uppercase;padding:.3em .75em;border-radius:10px;border:2px solid var(--ink);background:var(--sun)}
-.tag.sea{background:#9fdcff}.tag.new{background:var(--pink);color:#fff}
+/* ---- the pillars: one idea each, picture on one side, words on the other ---- */
+.pillars{display:grid;gap:clamp(56px,8vw,96px)}
+.pillar{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,5vw,64px);align-items:center}
+.pillar.flip .pic{order:2}
+.pillar .pic{padding:8px;transform:rotate(-1.2deg)}
+.pillar.flip .pic{transform:rotate(1.2deg)}
+.pillar .pic img{border-radius:14px;border:2px solid var(--ink);aspect-ratio:16/10;object-fit:cover;width:100%}
+.pillar h2{margin:12px 0 16px}
+.ticks{display:grid;gap:10px;margin:22px 0 0;padding:0;list-style:none;font-weight:800}
+.ticks li{position:relative;padding-left:32px}
+.ticks li::before{content:"";position:absolute;left:0;top:.18em;width:20px;height:20px;border-radius:7px;border:var(--line) solid var(--ink);background:var(--sun)}
+.world{background:linear-gradient(180deg,var(--sand) 0,#e6f4fb 22%,#cfeaf8 100%)}
 
-/* ---- the cast: a rail on phones ---- */
-.rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.who{overflow:hidden;display:flex;flex-direction:column}
-.who img{aspect-ratio:4/3;object-fit:cover;width:100%;border-bottom:var(--line) solid var(--ink)}
-.who .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
-.who .role{font:900 .78rem var(--fb);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
-.who q{font:700 1rem/1.5 var(--fb);quotes:"“" "”";color:var(--ink)}
-.hear{margin-top:auto;align-self:flex-start;font-size:.98rem;padding:.5em .95em;border-radius:14px;box-shadow:0 3px 0 var(--ink)}
-.hear .bars{display:none;gap:2px;align-items:flex-end;height:1em}
-.hear .bars i{width:3px;background:currentColor;border-radius:2px;animation:eq .7s ease-in-out infinite}
-.hear .bars i:nth-child(2){animation-delay:.15s}.hear .bars i:nth-child(3){animation-delay:.3s}
-@keyframes eq{0%,100%{height:30%}50%{height:100%}}
-.hear.on{background:var(--pink);color:#fff}.hear.on .bars{display:inline-flex}.hear.on svg{display:none}
-
-/* ---- ways to play ---- */
-.play{background:var(--cream);border-block:var(--line) solid var(--ink)}
-.modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
-.mode{overflow:hidden;display:flex;flex-direction:column;background:#fff}
-.mode img{aspect-ratio:16/10;object-fit:cover;width:100%;border-bottom:var(--line) solid var(--ink)}
-.mode .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px}
-.extras{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:18px 22px;align-items:center;padding:20px 22px;background:var(--sand)}
-.extras .list{display:flex;flex-wrap:wrap;gap:8px}
-.extras .list span{font:800 .92rem var(--fb);padding:.35em .8em;border-radius:12px;border:2px solid var(--ink);background:var(--cream)}
-
-/* ---- the herd ---- */
-.herd{overflow:hidden}
-.parade{position:relative;margin-block:8px 34px;-webkit-mask:linear-gradient(90deg,#0000,#000 6%,#000 94%,#0000);mask:linear-gradient(90deg,#0000,#000 6%,#000 94%,#0000)}
-.parade .row{display:flex;gap:6px;width:max-content;animation:march 60s linear infinite}
-.parade:hover .row{animation-play-state:paused}
-.parade img{width:clamp(130px,17vw,190px);flex:none}
-@keyframes march{to{transform:translateX(-50%)}}
-.mind{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px;align-items:center}
-.points{display:grid;gap:14px;margin:20px 0 0;padding:0}
-.points li{list-style:none;padding-left:32px;position:relative}
-.points li::before{content:"";position:absolute;left:0;top:.3em;width:18px;height:18px;border-radius:6px;border:var(--line) solid var(--ink);background:var(--sun)}
-.scroll{padding:22px 24px}
+/* the Scroll, shown as the Journal shows it */
+.scroll{padding:22px 24px;transform:rotate(-1deg)}
 .axes{display:grid;grid-template-columns:auto 1fr auto;gap:10px 14px;align-items:center;font:900 .95rem var(--fb);margin-top:14px}
 .axes .bar{height:15px;border:2px solid var(--ink);border-radius:8px;background:var(--sand);overflow:hidden}
 .axes .bar i{display:block;height:100%;background:var(--leaf)}
@@ -152,23 +132,74 @@ section{padding-block:clamp(56px,9vw,96px)}
 .arch span{font:900 .84rem var(--fb);padding:.3em .75em;border-radius:10px;border:2px solid var(--ink);background:var(--sand)}
 .arch span.on{background:var(--sun)}
 .note{margin-top:14px;font:800 .85rem var(--fb);color:var(--ink2)}
+.small-label{font:900 .78rem var(--fb);letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
+
+/* ---- the cast: a rail on phones ---- */
+.rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.who{overflow:hidden;display:flex;flex-direction:column}
+.who img{aspect-ratio:4/3;object-fit:cover;width:100%;border-bottom:var(--line) solid var(--ink)}
+.who .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.who .role{font:900 .76rem var(--fb);letter-spacing:.12em;text-transform:uppercase;color:var(--pink)}
+.who q{font:600 1.05rem/1.45 var(--fb);quotes:"“" "”";color:var(--ink);margin:4px 0 10px}
+.hear{margin-top:auto;align-self:flex-start}
+.hear .bars{display:none;gap:2px;align-items:flex-end;height:1em}
+.hear .bars i{width:3px;background:currentColor;border-radius:2px;animation:eq .7s ease-in-out infinite}
+.hear .bars i:nth-child(2){animation-delay:.15s}.hear .bars i:nth-child(3){animation-delay:.3s}
+@keyframes eq{0%,100%{height:30%}50%{height:100%}}
+.hear.on{background:var(--pink);color:#fff}.hear.on .bars{display:inline-flex}.hear.on svg{display:none}
+
+/* ---- the story: two chapters ---- */
+.story{background:var(--cream);border-block:var(--line) solid var(--ink)}
+.chapters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.chapter{overflow:hidden;display:flex;flex-direction:column;background:#fff}
+.chapter img{aspect-ratio:16/10;object-fit:cover;width:100%;border-bottom:var(--line) solid var(--ink)}
+.chapter .body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px}
+.tag{align-self:flex-start;font:900 .72rem var(--fb);letter-spacing:.12em;text-transform:uppercase;padding:.3em .75em;border-radius:10px;border:2px solid var(--ink);background:var(--sun)}
+.tag.sea{background:#9fdcff}.tag.new{background:var(--pink);color:#fff}
+
+/* ---- more ways to play ---- */
+.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.mode{overflow:hidden;display:flex;flex-direction:column}
+.mode img{aspect-ratio:16/9;object-fit:cover;width:100%;border-bottom:var(--line) solid var(--ink)}
+.mode .body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px}
+.extras{margin-top:22px;display:grid;grid-template-columns:auto 1fr;gap:16px 22px;align-items:center;padding:20px 22px;background:#fff}
+.extras .list{display:flex;flex-wrap:wrap;gap:8px}
+.extras .list span{font:800 .92rem var(--fb);padding:.35em .8em;border-radius:12px;border:2px solid var(--ink);background:var(--sand)}
+
+/* ---- the herd ---- */
+.herd{overflow:hidden;background:linear-gradient(180deg,var(--sand),#f1dcae)}
+.parade{position:relative;margin-block:8px 0;-webkit-mask:linear-gradient(90deg,#0000,#000 6%,#000 94%,#0000);mask:linear-gradient(90deg,#0000,#000 6%,#000 94%,#0000)}
+.parade .row{display:flex;gap:6px;width:max-content;animation:march 60s linear infinite}
+.parade:hover .row{animation-play-state:paused}
+.parade img{width:clamp(130px,17vw,190px);flex:none}
+@keyframes march{to{transform:translateX(-50%)}}
 
 /* ---- controls ---- */
-.controls{background:linear-gradient(180deg,var(--sand),#f1dcae)}
 .phone{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:52px;align-items:center}
 .device{border:7px solid var(--ink);border-radius:40px;padding:8px;background:#121821;box-shadow:var(--lift);max-width:290px;margin-inline:auto}
 .device img{border-radius:30px;aspect-ratio:390/844;object-fit:cover;width:100%}
-.keys{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin-top:22px;font-size:.98rem}
-.keys kbd{font:900 .8rem var(--fb);background:var(--ink);color:var(--cream);border-radius:8px;padding:4px 9px;justify-self:start;align-self:start;margin-top:2px;white-space:nowrap}
-.keys span{color:var(--ink2)}
-.touch{display:grid;gap:10px;margin-top:18px}
+.phone h2{margin:12px 0 18px}
+.touch{display:grid;gap:12px}
 .touch div{display:flex;gap:12px;align-items:flex-start}
 .touch b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--sun);border:var(--line) solid var(--ink);display:grid;place-items:center;font:700 .95rem var(--fh)}
+.keys{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin-top:24px;padding-top:20px;border-top:2px dashed #24171033;font-size:.98rem}
+.keys kbd{font:900 .8rem var(--fb);background:var(--ink);color:var(--cream);border-radius:8px;padding:4px 9px;justify-self:start;align-self:start;margin-top:2px;white-space:nowrap}
+.keys span{color:var(--ink2)}
+
+/* ---- questions ---- */
+.faq{max-width:780px;margin-inline:auto;display:grid;gap:12px}
+.faq details{padding:0;border-radius:18px;box-shadow:0 4px 0 var(--ink)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 20px;font:700 1.18rem/1.25 var(--fh)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);background:var(--sun);display:grid;place-items:center;font:700 1.2rem/1 var(--fh);transition:transform .15s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 20px 18px;color:var(--ink2);max-width:40em}
 
 /* ---- the last call ---- */
-.final{text-align:center;padding:clamp(30px,5vw,48px) clamp(20px,4vw,40px);background:var(--pink);color:#fff;position:relative;overflow:hidden}
-.final h2{text-shadow:0 3px 0 var(--ink);margin-bottom:12px}
-.final p{max-width:34em;margin:0 auto;color:#fff5fb}
+.final{text-align:center;padding:clamp(34px,5vw,56px) clamp(20px,4vw,40px);background:var(--pink);color:#fff;position:relative;overflow:hidden}
+.final h2{text-shadow:0 3px 0 var(--ink);margin-bottom:14px}
+.final h2 em{color:var(--sun)}
+.final p{max-width:30em;margin:0 auto;color:#fff5fb;font-size:1.15rem}
 .final .ctas{justify-content:center}
 .final .peek{position:absolute;width:min(200px,34vw);right:-16px;bottom:-12px;transform:rotate(-6deg);opacity:.98}
 footer{background:var(--ink);color:#e9d9c3;padding-block:26px calc(26px + env(safe-area-inset-bottom,0px))}
@@ -185,38 +216,43 @@ footer a:hover{text-decoration:underline}
 
 @media (max-width:980px){
   .rail{grid-template-columns:repeat(2,minmax(0,1fr))}
+  nav .links a:not(.btn){display:none}
 }
 @media (max-width:760px){
+  body{font-size:1rem}
   nav{padding-block:6px 10px}
-  nav .links{display:none}
   .hero{padding-bottom:84px}
-  .mind,.phone{grid-template-columns:minmax(0,1fr)}
+  .phone,.pillar{grid-template-columns:minmax(0,1fr)}
+  .pillar.flip .pic{order:0}
   /* on a phone the hero reads badge, headline, the game itself, Play: all in the first screen, the blurb after */
   .hero-grid{display:flex;flex-direction:column;gap:0;text-align:center}
   .hero .copy{display:contents}
-  .badge{order:1;align-self:center;width:108px}
-  .hero h1{order:2;margin:10px 0 0}
-  .art{order:3;margin:26px 6px 0}
-  .hero .ctas{order:4;margin:30px 0 10px}
-  .fine{order:5}
-  .hero .lede{order:6;margin:18px auto 0}
+  .badge{order:1;align-self:center;width:84px}
+  .hero .pill{order:2;align-self:center;margin-top:10px}
+  .hero h1{order:3;margin:12px 0 0}
+  .art{order:4;margin:26px 6px 0}
+  .hero .ctas{order:5;margin:30px 0 12px}
+  .chips{order:6;justify-content:center}
+  .hero .lede{order:7;margin:20px auto 0}
   .ctas{justify-content:center}
   .ctas .btn{flex:1 1 100%}
   .art .sticker{width:30%;left:-5%;bottom:-18%}
-  .art .bubble{font-size:.8rem;top:-18px;right:2%}
+  .art .bubble{font-size:.82rem;top:-18px;right:2%}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .stats li:nth-child(3){border-left:0}
   .stats li:nth-child(n+3){border-top:2px dashed #24171033}
   .chapters,.modes{grid-template-columns:minmax(0,1fr)}
-  /* the cast and the ways to play swipe sideways, a card and a bit in view */
-  .rail,.modes{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:4px 16px 18px;margin-inline:-16px;scrollbar-width:none}
-  .rail::-webkit-scrollbar,.modes::-webkit-scrollbar{display:none}
-  .rail>*,.modes>*{flex:0 0 82%;scroll-snap-align:center}
+  /* the cast swipes sideways, a card and a bit in view */
+  .rail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;padding:4px 16px 18px;margin-inline:-16px;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .rail>*{flex:0 0 82%;scroll-snap-align:center}
   .extras{grid-template-columns:minmax(0,1fr)}
   .device{max-width:250px}
   .dock{display:block}
   footer{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
   .final .peek{width:120px;right:-20px}
+  .faq summary{font-size:1.08rem;padding:14px 16px}
+  .faq details p{padding:0 16px 16px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -233,23 +269,24 @@ footer a:hover{text-decoration:underline}
   <div class="wrap">
     <nav>
       <a class="brand" href="#top"><img src="brand/icon-128.png" alt="" width="42" height="42"><b>CLI Tortoises</b></a>
-      <div class="links"><a href="#world">The world</a><a href="#cast">The cast</a><a href="#modes">Ways to play</a><a href="#herd">The herd</a><a href="#controls">How to play</a></div>
+      <div class="links"><a href="#tame">The game</a><a href="#cast">The cast</a><a href="#story">The story</a><a href="#faq">Questions</a><a class="btn sm" href="game.html?demo" data-play>Play free</a></div>
     </nav>
     <div class="hero-grid">
       <div class="copy">
         <img class="badge" src="brand/cli-tortoises-logo.png" width="640" height="640" alt="C.L.I. Tortoises">
-        <h1>Ride a tortoise that remembers what you do together.</h1>
-        <p class="lede">Explore a sea of turtle islands on tortoiseback. Battle and tame the wild ones, wake the oldest turtle
-          in the sea, and ride her across to a land nobody has walked since the Great Tide.</p>
+        <p class="pill">A free creature-taming adventure</p>
+        <h1><span>Tame a tortoise.</span> <span>Ride the islands.</span> <em>Wake the sea.</em></h1>
+        <p class="lede">Battle and tame wild tortoises on a sea where every island is a turtle. Yours remembers every choice
+          you make together, and grows into the tortoise you raised.</p>
         <div class="ctas">
           <a class="btn go" id="play" href="game.html?demo" data-play><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span>Play free</span></a>
-          <a class="btn" href="game.html">Start from the beginning</a>
+          <a class="btn" href="game.html">Start with the story</a>
         </div>
-        <p class="fine">Phone or computer · nothing to install · no wallet · it saves as you play</p>
+        <ul class="chips"><li>Phone or computer</li><li>No download</li><li>No wallet needed</li><li>Saves as you play</li></ul>
       </div>
       <figure class="art">
         <div class="frame card"><img class="shot" src="shots/island.jpg" width="1600" height="900" alt="Riding a tortoise across Shellhaven, two tamed tortoises following"></div>
-        <span class="bubble" aria-hidden="true">Every choice goes in its Scroll</span>
+        <span class="bubble" aria-hidden="true">It'll remember that.</span>
         <img class="sticker" src="herd/777.webp" width="384" height="317" alt="">
       </figure>
     </div>
@@ -258,51 +295,66 @@ footer a:hover{text-decoration:underline}
 
 <div class="facts wrap">
   <ul class="stats card" aria-label="At a glance">
-    <li><b>65</b><span>turtle islands at sea</span></li>
-    <li><b>2</b><span>chapters, two lands</span></li>
-    <li><b>4</b><span>ways to play</span></li>
     <li><b>10,000</b><span>tortoises, no two alike</span></li>
+    <li><b>65</b><span>living islands to explore</span></li>
+    <li><b>4</b><span>ways to play</span></li>
+    <li><b>2</b><span>chapters of story</span></li>
   </ul>
 </div>
 
 <main>
-  <section class="world" id="world">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">The world</p>
-        <h2>A sea of turtle islands</h2>
-        <p class="lede dim">Shellhaven is home: a camp, a barn of sleeping tortoises, an Elder by the fire. Past its beaches the sea
-          is full of islands, and every one of them is a turtle.</p>
-      </div>
-      <div class="chapters">
-        <article class="chapter card">
-          <img src="shots/deep.jpg" width="1600" height="900" loading="lazy" alt="Old Deepbreath asleep at sea: forest, terraces and a waterfall on her shell, her great head resting on the sand">
-          <div class="body">
-            <span class="tag">Chapter I</span>
-            <h3>Shellhaven and the sea</h3>
-            <p class="dim">Wake the stable, commune with the Echo Stones, and sail out among the islands round Shellhaven. Out past
-              them all sleeps Old Deepbreath, the oldest turtle in the sea. Give her stones their rhythm, and she wakes.</p>
+  <section class="world" id="tame">
+    <div class="wrap pillars">
+      <article class="pillar">
+        <div class="pic card"><img src="shots/battle.jpg" width="1600" height="900" loading="lazy" alt="A wild tortoise battle, move cards in hand"></div>
+        <div>
+          <p class="kicker"><b>01</b>Battle and tame</p>
+          <h2>Wear them down. <em>Win them over.</em></h2>
+          <p class="lede">Every move is a card, and you draw a fresh hand each turn. Wear a wild tortoise down, win it over,
+            and it joins your stable.</p>
+          <ul class="ticks"><li>A new hand of moves every turn</li><li>Tamed tortoises follow you about</li><li>Ride whichever one you like</li></ul>
+        </div>
+      </article>
+      <article class="pillar flip" id="explore">
+        <div class="pic card"><img src="shots/deep.jpg" width="1600" height="900" loading="lazy" alt="Old Deepbreath asleep at sea: forest, terraces and a waterfall on her shell, her great head resting on the sand"></div>
+        <div>
+          <p class="kicker"><b>02</b>Explore</p>
+          <h2>Every island <em>is a turtle.</em></h2>
+          <p class="lede">Ride out from Shellhaven across a sea of living islands. Out past them all, the oldest turtle in the
+            sea is asleep, and she is big enough to carry a forest.</p>
+          <ul class="ticks"><li>Sail, dive for wrecks, or go on foot</li><li>Trade with the chicken merchants</li><li>Slide downhill on your shell</li></ul>
+        </div>
+      </article>
+      <article class="pillar" id="scroll">
+        <div class="scroll card">
+          <p class="small-label">Journal · Scroll</p>
+          <h3 style="margin-top:6px">This one is a Seeker</h3>
+          <div class="axes">
+            <span>bold</span><div class="bar"><i style="width:47%"></i></div><span class="n">120</span>
+            <span>wary</span><div class="bar wary"><i style="width:35%"></i></div><span class="n">89</span>
+            <span>curious</span><div class="bar cur"><i style="width:69%"></i></div><span class="n">176</span>
+            <span>kind</span><div class="bar kind"><i style="width:56%"></i></div><span class="n">142</span>
           </div>
-        </article>
-        <article class="chapter card">
-          <img src="shots/harbour.jpg" width="1600" height="900" loading="lazy" alt="The drowned harbour of Ebbmouth on the sand, Old Pagurus the hermit crab among its ruins">
-          <div class="body">
-            <span class="tag new">Chapter II</span>
-            <h3>The Ebblands</h3>
-            <p class="dim">She carries you across on her back. When she breathes out, the sea goes down and a land comes up out of
-              it: a blank map, a drowned harbour, the Wreck on the Hill and the Old Beacon.</p>
-          </div>
-        </article>
-      </div>
+          <div class="arch"><span>Champion</span><span>Guardian</span><span class="on">Seeker</span><span>Hermit</span><span>Renegade</span><span>Wanderer</span></div>
+          <p class="note">An example. In the game, the Journal shows your own tortoise's Scroll.</p>
+        </div>
+        <div>
+          <p class="kicker"><b>03</b>Raise</p>
+          <h2>Your tortoise <em>remembers.</em></h2>
+          <p class="lede">Spare a foe or press the attack. Help a stranger or walk on by. Every choice goes into your tortoise's
+            Scroll, and the Scroll shapes who it becomes.</p>
+          <ul class="ticks"><li>It starts out bold, wary or curious</li><li>Your choices change its mind</li><li>It grows into one of six kinds</li></ul>
+        </div>
+      </article>
     </div>
   </section>
 
   <section id="cast">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">The cast</p>
-        <h2>Everyone you meet has a voice</h2>
-        <p class="lede dim">The island's people speak their lines aloud. Tap to hear them.</p>
+        <p class="kicker"><b>04</b>The cast</p>
+        <h2>Everyone here <em>talks back.</em></h2>
+        <p class="lede dim">The people of the islands speak their lines out loud. Tap to hear them.</p>
       </div>
       <div class="rail">
         <article class="who card">
@@ -311,7 +363,7 @@ footer a:hover{text-decoration:underline}
             <p class="role">Shellhaven's Elder</p>
             <h3>Elder Mossback</h3>
             <q>Ah… you're awake. Good. Most of Shellhaven isn't.</q>
-            <button class="btn hear" type="button" data-voice="audio/elder/e3fb3a03c.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
+            <button class="btn sm hear" type="button" data-voice="audio/elder/e3fb3a03c.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
           </div>
         </article>
         <article class="who card">
@@ -320,7 +372,7 @@ footer a:hover{text-decoration:underline}
             <p class="role">The cleaning station</p>
             <h3>Dr. Bubba Gump Shrimp</h3>
             <q>Next! Oh, nobody's next. Welcome to the cleaning station. Doctor Bubba Gump Shrimp, at your service.</q>
-            <button class="btn hear" type="button" data-voice="audio/shrimp/ed39d97a5.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
+            <button class="btn sm hear" type="button" data-voice="audio/shrimp/ed39d97a5.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
           </div>
         </article>
         <article class="who card">
@@ -329,7 +381,7 @@ footer a:hover{text-decoration:underline}
             <p class="role">Keeper of the bells</p>
             <h3>Old Pagurus</h3>
             <q>Oh! A walker. On my harbour! Well, it's not much of a harbour now, with the sea gone off and left it.</q>
-            <button class="btn hear" type="button" data-voice="audio/pagurus/ed2262b7c.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
+            <button class="btn sm hear" type="button" data-voice="audio/pagurus/ed2262b7c.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
           </div>
         </article>
         <article class="who card">
@@ -338,36 +390,56 @@ footer a:hover{text-decoration:underline}
             <p class="role">The oldest turtle</p>
             <h3>Old Deepbreath</h3>
             <q>Ahh. Small ones, on my back again. It has been a long time.</q>
-            <button class="btn hear" type="button" data-voice="audio/deep/e6c7d8b25.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear her</button>
+            <button class="btn sm hear" type="button" data-voice="audio/deep/e6c7d8b25.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear her</button>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="play" id="modes">
+  <section class="story" id="story">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">Ways to play</p>
-        <h2>Ride it, battle it, deal it, command it</h2>
+        <p class="kicker"><b>05</b>The story</p>
+        <h2>Two chapters. <em>One very old turtle.</em></h2>
       </div>
-      <div class="modes">
-        <article class="mode card">
-          <img src="shots/battle.jpg" width="1600" height="900" loading="lazy" alt="A wild tortoise battle, move cards in hand">
+      <div class="chapters">
+        <article class="chapter card">
+          <img src="shots/eye.jpg" width="1600" height="900" loading="lazy" style="object-position:62% 45%" alt="Old Deepbreath's eye, closed, in a head the size of a hill">
           <div class="body">
-            <span class="tag">Battle and tame</span>
-            <h3>Wild tortoise battles</h3>
-            <p class="dim">Your tortoise's moves are cards, a fresh hand every turn. Wear a wild one down and win it over, and it
-              joins your stable and follows you about.</p>
+            <span class="tag">Chapter I</span>
+            <h3>Shellhaven and the sea</h3>
+            <p class="dim">Wake the sleeping stable, learn the rhythm of the Echo Stones, and sail out to Old Deepbreath. Play her
+              stones back to her, and she opens her eyes.</p>
           </div>
         </article>
+        <article class="chapter card">
+          <img src="shots/harbour.jpg" width="1600" height="900" loading="lazy" alt="The drowned harbour of Ebbmouth on the sand, Old Pagurus the hermit crab among its ruins">
+          <div class="body">
+            <span class="tag new">Chapter II</span>
+            <h3>The Ebblands</h3>
+            <p class="dim">She carries you across on her back. When she breathes out, the sea draws back and a new land rises: a
+              blank map, a drowned harbour, a wreck on a hill.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="modes">
+    <div class="wrap">
+      <div class="head">
+        <p class="kicker"><b>06</b>More to play</p>
+        <h2>Deal a hand. <em>Or go to war.</em></h2>
+      </div>
+      <div class="modes">
         <article class="mode card">
           <img src="shots/duel.jpg" width="1600" height="900" loading="lazy" alt="The Shell Duel card table, tortoises facing off">
           <div class="body">
             <span class="tag sea">Cards</span>
             <h3>The Shell Duel</h3>
-            <p class="dim">A card game at the table with your stable as the deck: tortoises, snacks and Echo Scrolls. Knock out
-              your rival's side before they knock out yours.</p>
+            <p class="dim">Your stable is your deck. Play tortoises, snacks and Echo Scrolls, and knock out your rival's side
+              before they knock out yours.</p>
           </div>
         </article>
         <article class="mode card">
@@ -375,25 +447,25 @@ footer a:hover{text-decoration:underline}
           <div class="body">
             <span class="tag new">Strategy</span>
             <h3>Wartles &amp; Wartioses</h3>
-            <p class="dim">Lead a people of turtles on a war table: dig shards, raise an army, fend off the Clatter's crab raids.
-              A campaign of fifteen missions, or a skirmish.</p>
+            <p class="dim">Lead a people of turtles. Dig shards, raise an army and hold off the Clatter's crab raids, across
+              fifteen missions or a quick skirmish.</p>
           </div>
         </article>
       </div>
       <div class="extras card">
         <h3>And in between</h3>
-        <div class="list"><span>Shell Slide</span><span>Downhill Run</span><span>Shell Bowling</span><span>Shell Pinball</span><span>Diving for wrecks</span><span>Chicken merchants</span><span>Crafting</span><span>On foot with a bow</span></div>
+        <div class="list"><span>Shell Slide</span><span>Downhill Run</span><span>Shell Bowling</span><span>Shell Pinball</span><span>Diving for wrecks</span><span>Crafting</span><span>On foot with a bow</span></div>
       </div>
     </div>
   </section>
 
   <section class="herd" id="herd">
     <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">The herd</p>
-        <h2>10,000 tortoises. No two alike.</h2>
-        <p class="lede dim">Every tortoise in the game is one of the CLI Tortoises: its own shell, print, skin, hat, neckwear and
-          shoes. You'll meet them roaming the islands, battle them, and ride the ones you tame.</p>
+      <div class="head mid">
+        <p class="kicker"><b>07</b>The herd</p>
+        <h2>10,000 tortoises. <em>No two alike.</em></h2>
+        <p class="lede dim">Each has its own shell, print, skin, hat, neckwear and shoes. Meet them roaming the islands, battle
+          them, and ride the ones you tame.</p>
       </div>
     </div>
     <div class="parade" aria-hidden="true">
@@ -401,41 +473,17 @@ footer a:hover{text-decoration:underline}
         <img src="herd/7.webp" width="384" height="317" alt=""><img src="herd/42.webp" width="384" height="317" alt=""><img src="herd/101.webp" width="384" height="317" alt=""><img src="herd/333.webp" width="384" height="317" alt=""><img src="herd/777.webp" width="384" height="317" alt=""><img src="herd/1024.webp" width="384" height="317" alt=""><img src="herd/1337.webp" width="384" height="317" alt=""><img src="herd/2048.webp" width="384" height="317" alt=""><img src="herd/3141.webp" width="384" height="317" alt=""><img src="herd/4096.webp" width="384" height="317" alt=""><img src="herd/6006.webp" width="384" height="317" alt=""><img src="herd/6969.webp" width="384" height="317" alt=""><img src="herd/7777.webp" width="384" height="317" alt=""><img src="herd/8888.webp" width="384" height="317" alt=""><img src="herd/9393.webp" width="384" height="317" alt=""><img src="herd/9999.webp" width="384" height="317" alt="">
       </div>
     </div>
-    <div class="wrap mind">
-      <div>
-        <p class="eyebrow" style="color:var(--pink)">The Scroll</p>
-        <h2 style="margin-top:10px">Its mind is written by what you do</h2>
-        <ul class="points">
-          <li>Every tortoise carries a small mind, seeded from its token: how bold, wary and curious it starts out.</li>
-          <li>Your choices drift it. Spare a foe or press the attack, help a stranger or walk on: each one is sealed into its Scroll.</li>
-          <li>The Scroll only grows, and it replays to the same root anywhere, so its history is provably its own.</li>
-          <li>The Elder reads it, and your tortoise grows into a Champion, a Guardian, a Seeker, a Hermit, a Renegade or a Wanderer.</li>
-        </ul>
-      </div>
-      <div class="scroll card">
-        <p class="eyebrow" style="color:var(--ink2)">Journal · Scroll</p>
-        <h3 style="margin-top:6px">This one is a Seeker</h3>
-        <div class="axes">
-          <span>bold</span><div class="bar"><i style="width:47%"></i></div><span class="n">120</span>
-          <span>wary</span><div class="bar wary"><i style="width:35%"></i></div><span class="n">89</span>
-          <span>curious</span><div class="bar cur"><i style="width:69%"></i></div><span class="n">176</span>
-          <span>kind</span><div class="bar kind"><i style="width:56%"></i></div><span class="n">142</span>
-        </div>
-        <div class="arch"><span>Champion</span><span>Guardian</span><span class="on">Seeker</span><span>Hermit</span><span>Renegade</span><span>Wanderer</span></div>
-        <p class="note">An example. In the game, the Journal's Scroll tab shows your own tortoise's.</p>
-      </div>
-    </div>
   </section>
 
-  <section class="controls" id="controls">
+  <section id="controls">
     <div class="wrap phone">
       <div class="device"><img src="shots/phone.jpg" width="780" height="1688" loading="lazy" alt="The game on a phone, in portrait, with its touch controls"></div>
       <div>
-        <p class="eyebrow" style="color:var(--pink)">How to play</p>
-        <h2 style="margin:10px 0 12px">Made for one thumb, fine with a keyboard</h2>
+        <p class="kicker"><b>08</b>How to play</p>
+        <h2>Made for one thumb. <em>Fine with a keyboard.</em></h2>
         <div class="touch">
-          <div><b>1</b><p class="dim">Drag anywhere to steer. Tap a thing to walk there and do the obvious: talk, chop, check.</p></div>
-          <div><b>2</b><p class="dim">Hold on something for every option. Double-tap the screen to hop out of a Shell Slide.</p></div>
+          <div><b>1</b><p>Drag anywhere to steer. Tap something to walk over and do the obvious thing: talk, chop, look.</p></div>
+          <div><b>2</b><p>Hold on something to see every option. Double-tap to hop out of a Shell Slide.</p></div>
         </div>
         <div class="keys">
           <kbd>W A S D</kbd><span>Ride (double-tap W to sprint)</span>
@@ -449,12 +497,34 @@ footer a:hover{text-decoration:underline}
     </div>
   </section>
 
+  <section class="story" id="faq">
+    <div class="wrap">
+      <div class="head mid">
+        <p class="kicker">Questions</p>
+        <h2>Before you <em>set off</em></h2>
+      </div>
+      <div class="faq">
+        <details class="card" open><summary>Is it really free?</summary>
+          <p>Yes. Both chapters and every way to play, right here in your browser.</p></details>
+        <details class="card"><summary>Do I need a crypto wallet?</summary>
+          <p>No. The tortoises are a collection on the Chia blockchain, but you don't need a wallet or a token to play. Linking
+            a wallet is optional, and only for collectors.</p></details>
+        <details class="card"><summary>Where does my progress go?</summary>
+          <p>It saves in this browser as you play, and picks up where you left off. Make a free account to keep it safe on
+            another device and to show up on the leaderboards.</p></details>
+        <details class="card"><summary>Will it run on my phone?</summary>
+          <p>Yes. It's built to play with one thumb, and it picks its graphics to suit your device. A computer with a keyboard
+            works just as well.</p></details>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="wrap">
       <div class="final card">
         <img class="peek" src="herd/9999.webp" width="384" height="317" alt="">
-        <h2>Your tortoise is waiting on the beach</h2>
-        <p>It's the whole game, free, and it saves as you play. Come back on the same browser and it picks up where you left off.</p>
+        <h2>Your tortoise is <em>waiting on the beach.</em></h2>
+        <p>The whole game, free, in your browser. It saves as you play.</p>
         <div class="ctas">
           <a class="btn go" id="play2" href="game.html?demo" data-play><span>Play free</span></a>
           <a class="btn" href="game.html#wartles">Open the war table</a>
