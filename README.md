@@ -4,11 +4,12 @@ Ride a tortoise around a sea of turtle islands, battle and tame the wild ones, p
 and command the Wartles war table. It runs in the browser on a phone or a computer: open the site and press
 **Play free**. There's nothing to install and no wallet to connect.
 
-- `index.html` is the landing page, and `game.html` is the game.
+- `index.html` is the landing page, and `game.html` is the game. `wartles/` is the war table's own page (Wartles &
+  Wartioses), the one its clips send people to.
 - Your progress stays in this browser.
 
 This site is built from [tensorrent/CLI--Tortoises](https://github.com/tensorrent/CLI--Tortoises) at
-`2a9b6d4d19ac`. That repo holds the source, the tests, the save server and the build:
+`acb458450222`. That repo holds the source, the tests, the save server and the build:
 
 ```sh
 cd app && npm install && npm run build:demo

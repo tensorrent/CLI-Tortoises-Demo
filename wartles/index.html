@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wartles &amp; Wartioses: the Shell War</title>
+<meta name="description" content="Turtles against tortoises: a free real-time war in your browser, on phone or computer. Lead one of three peoples, dig shards, raise an army and wake a titan, across sixteen missions, skirmishes and crab raids.">
+<link rel="canonical" href="https://tensorrent.github.io/CLI-Tortoises-Demo/wartles/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tensorrent.github.io/CLI-Tortoises-Demo/wartles/">
+<meta property="og:title" content="Wartles &amp; Wartioses: the Shell War">
+<meta property="og:description" content="Turtles against tortoises, for the shards of an island. A free real-time war in your browser: dig, build, raise an army and wake a titan.">
+<meta property="og:image" content="https://tensorrent.github.io/CLI-Tortoises-Demo/wartles/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Wartles &amp; Wartioses: turtles and tortoises at war on the Elder's table">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@clitortoises">
+<meta name="theme-color" content="#120b07">
+<link rel="icon" type="image/png" href="../brand/icon-128.png">
+<link rel="apple-touch-icon" href="../brand/icon-128.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&amp;family=Baloo+2:wght@500;600;700;800&amp;display=swap">
+<style>
+/* the war table's own colours: lacquered wood, brass and gold, and one colour for each people */
+:root{
+  --wood0:#0b0705;--wood1:#130c08;--wood2:#1c120b;--wood3:#2a1b10;--seam:#3b2a1b;
+  --ink:#2a1406;--cream:#fff3dc;--dim:#d8c3a0;--faint:#a8916f;
+  --gold:#ffd54a;--gold2:#f2a326;--brass:#c99a3d;
+  --hearth:#e0832f;--hearth-d:#6e3d1c;--mire:#8cbf3a;--mire-d:#33461f;--tide:#35c3d6;--tide-d:#1b4f5a;--clatter:#e5523f;
+  --fh:"Lilita One","Arial Rounded MT Bold",ui-rounded,"Segoe UI",system-ui,sans-serif;
+  --fb:"Baloo 2",ui-rounded,"Segoe UI",system-ui,sans-serif;
+  --r:18px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--wood0);color:var(--cream);font:500 1.0625rem/1.55 var(--fb);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+p{margin:0}
+h1,h2,h3{font-family:var(--fh);font-weight:400;line-height:1.02;letter-spacing:.005em;margin:0;text-wrap:balance}
+h2{font-size:clamp(2.1rem,5vw,3.5rem);color:var(--gold);text-shadow:0 3px 0 var(--ink)}
+h2 em{font-style:normal;color:var(--cream);display:block}
+h3{font-size:clamp(1.35rem,2.4vw,1.65rem)}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
+.kicker{font:800 .8rem var(--fb);letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.lede{font-size:clamp(1.08rem,2vw,1.24rem);line-height:1.5;color:var(--dim);max-width:34em}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+
+/* buttons: the war table's own, gold and chunky */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font:400 1.2rem var(--fh);letter-spacing:.01em;text-decoration:none;color:var(--ink);
+  background:linear-gradient(180deg,#ffe07a,var(--gold) 45%,var(--gold2));border:2px solid #fff3c4;border-radius:14px;padding:.62em 1.3em;
+  box-shadow:0 0 0 2px var(--ink),0 6px 0 2px var(--ink),0 10px 26px #ffb43a40;transition:transform .12s,box-shadow .12s;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 0 2px var(--ink),0 8px 0 2px var(--ink),0 14px 30px #ffb43a55}
+.btn:active{transform:translateY(4px);box-shadow:0 0 0 2px var(--ink),0 2px 0 2px var(--ink)}
+.btn.big{font-size:1.45rem;padding:.6em 1.5em}
+.btn.ghost{background:var(--wood2);color:var(--cream);border-color:var(--seam);box-shadow:0 0 0 2px #000a,0 5px 0 2px #000a}
+.btn.ghost:hover{border-color:var(--brass)}
+.btn svg{width:1em;height:1em;flex:none}
+.btn small{font:800 .72rem var(--fb);letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+
+/* a panel, as the table's menus draw them */
+.panel{background:linear-gradient(180deg,var(--wood2),var(--wood1));border:2px solid var(--seam);border-radius:var(--r);box-shadow:0 10px 30px #0008,inset 0 1px 0 #ffffff10}
+.tag{display:inline-block;font:700 .9rem/1.3 var(--fb);color:var(--cream);background:#0008;border:1px solid #ffffff1f;border-radius:7px;padding:.12em .5em}
+.tag::before{content:"[";color:var(--faint)}.tag::after{content:"]";color:var(--faint)}
+
+/* ---- the hero: the wordmark as the title screen draws it, and the three peoples' cards fanned out beside it ---- */
+.hero{position:relative;isolation:isolate;overflow:hidden;padding-block:max(10px,env(safe-area-inset-top,0px)) clamp(70px,9vw,110px);
+  background:radial-gradient(70% 90% at 78% 40%,#1d4652 0%,#0f2a33 38%,#0b0705 78%)}
+.hero .table{position:absolute;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover;object-position:70% 50%;opacity:.38;filter:saturate(.9) blur(1px);
+  -webkit-mask:radial-gradient(75% 85% at 72% 45%,#000 30%,#0000 78%);mask:radial-gradient(75% 85% at 72% 45%,#000 30%,#0000 78%)}
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:8px 0}
+.home{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 .86rem var(--fb);letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.home img{width:34px;height:34px;border-radius:50%;border:2px solid var(--ink);box-shadow:0 0 0 2px var(--brass)}
+.home:hover{color:var(--cream)}
+nav .links{display:flex;gap:4px;align-items:center}
+nav .links a{font:800 .86rem var(--fb);text-decoration:none;color:var(--dim);padding:7px 11px;border-radius:10px}
+nav .links a:hover{background:#ffffff14;color:var(--cream)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(24px,4vw,56px);align-items:center;padding-top:clamp(28px,5vw,64px)}
+.hero .copy{max-width:600px}
+/* the fan: three cards, as the Skirmish screen frames each people */
+.fan{position:relative;aspect-ratio:10/6.6;max-width:640px;justify-self:center;width:100%}
+.fc{--c:var(--hearth);--cd:var(--hearth-d);position:absolute;top:10%;width:41%;margin:0;border:3px solid var(--c);border-radius:18px;overflow:hidden;background:var(--wood1);
+  box-shadow:0 0 0 2px #000,0 22px 40px #000c,0 0 34px color-mix(in srgb,var(--c) 30%,transparent);transition:transform .25s}
+.fc img{aspect-ratio:4/3;object-fit:cover;width:100%;border-bottom:2px solid #000}
+.fc figcaption{padding:9px 12px 11px;background:linear-gradient(180deg,var(--cd),color-mix(in srgb,var(--cd) 50%,#000))}
+.fc figcaption small{display:block;font:800 .62rem var(--fb);letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+.fc figcaption b{display:block;font:400 clamp(1rem,1.9vw,1.3rem)/1.05 var(--fh);text-transform:uppercase;color:var(--cream)}
+.fc.hearth{left:0;transform:rotate(-8deg) translateY(6%)}
+.fc.mire{--c:var(--mire);--cd:var(--mire-d);left:29.5%;top:0;z-index:2;transform:scale(1.06)}
+.fc.tide{--c:var(--tide);--cd:var(--tide-d);right:0;transform:rotate(8deg) translateY(6%)}
+.fc.tide figcaption{text-align:right}
+.fan:hover .fc.hearth{transform:rotate(-10deg) translate(-4%,4%)}.fan:hover .fc.tide{transform:rotate(10deg) translate(4%,4%)}
+.sub{font:800 clamp(.72rem,1.4vw,.86rem) var(--fb);letter-spacing:.42em;text-transform:uppercase;color:var(--cream);opacity:.92;margin:0 0 6px 4px}
+.wordmark{font:400 clamp(3rem,6.3vw,5.9rem)/.86 var(--fh);color:var(--gold);letter-spacing:.01em;text-transform:uppercase;
+  -webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:0 6px 0 var(--ink),0 0 50px #ffb45a55;margin:0}
+.wordmark span{display:block}
+.wordmark i{font-style:normal;font-size:.5em;color:var(--cream);vertical-align:.32em;margin-right:.08em}
+.hero .lede{margin:22px 0 0;color:#f1e3c9;text-shadow:0 1px 3px #000}
+.ctas{display:flex;flex-wrap:wrap;gap:14px 16px;align-items:center;margin-top:28px}
+.chips{display:flex;flex-wrap:wrap;gap:6px 18px;margin:20px 0 0;padding:0;list-style:none;font:700 .95rem var(--fb);color:var(--dim)}
+.chips li{display:flex;align-items:center;gap:7px}
+.chips li::before{content:"";width:9px;height:9px;transform:rotate(45deg);background:var(--gold);box-shadow:0 0 0 2px var(--ink)}
+
+/* ---- facts, on a strip of brass ---- */
+.facts{position:relative;z-index:2;margin-top:-40px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;overflow:hidden;border-color:#5b4227}
+.stats li{display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px 8px 14px;gap:2px}
+.stats li+li{border-left:1px solid #ffffff14}
+.stats b{font:400 clamp(2rem,4vw,2.7rem)/1 var(--fh);color:var(--gold);text-shadow:0 3px 0 var(--ink)}
+.stats span{font:700 .9rem/1.25 var(--fb);color:var(--dim)}
+
+section{padding-block:clamp(64px,10vw,116px)}
+.head{max-width:44em;margin-bottom:clamp(30px,4.5vw,48px)}
+.head h2{margin:12px 0 14px}
+.head.mid{margin-inline:auto;text-align:center}
+.head.mid .lede{margin-inline:auto}
+
+/* ---- the peoples: the cards from the table's own Skirmish screen ---- */
+.peoples{background:radial-gradient(90% 60% at 50% 0%,#17303a66,#0000 70%),var(--wood0)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.people{--c:var(--hearth);--cd:var(--hearth-d);position:relative;display:flex;flex-direction:column;border:3px solid var(--c);border-radius:20px;overflow:hidden;
+  background:linear-gradient(180deg,var(--wood2),var(--wood0));box-shadow:0 0 0 2px #000,0 18px 40px #000a,0 0 40px color-mix(in srgb,var(--c) 22%,transparent)}
+.people.mire{--c:var(--mire);--cd:var(--mire-d)}.people.tide{--c:var(--tide);--cd:var(--tide-d)}
+.people header{display:flex;align-items:center;gap:14px;padding:14px 16px 12px;background:linear-gradient(180deg,var(--cd),color-mix(in srgb,var(--cd) 55%,#000))}
+.emblem{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,#3b2a1b,#0b0705 75%);border:3px solid var(--c);color:var(--c);box-shadow:0 0 0 2px #000}
+.emblem svg{width:26px;height:26px}
+.people .kind{font:800 .7rem var(--fb);letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+.people h3{font-size:clamp(1.4rem,2.3vw,1.7rem);text-transform:uppercase;line-height:1;margin:2px 0 3px}
+.people .leader{font:700 .88rem var(--fb);color:var(--dim)}
+.people .leader q{quotes:"“" "”";color:var(--cream)}
+.people .art{position:relative;aspect-ratio:4/3;background:#000;border-block:2px solid #0008}
+.people .art img{width:100%;height:100%;object-fit:cover}
+.people .body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:12px;flex:1}
+.people .blurb{color:var(--dim);font-size:1rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.specials{display:grid;gap:8px;margin:0;padding:12px 14px;list-style:none;background:#0007;border:1px solid #ffffff17;border-radius:12px;font-size:.96rem;color:var(--dim)}
+.specials b{color:var(--c);font-weight:800}
+.label{font:800 .72rem var(--fb);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.titan{margin-top:auto;display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px dashed #ffffff26;font:700 .95rem/1.3 var(--fb);color:var(--dim)}
+.titan b{color:var(--c);font-weight:800}
+.titan svg{flex:none;width:20px;height:20px;color:var(--c)}
+
+/* ---- how a war goes ---- */
+.loop{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,5vw,60px);align-items:center}
+.shot{padding:8px;border-radius:20px}
+.shot img{border-radius:13px;border:2px solid #000;width:100%;aspect-ratio:16/9;object-fit:cover}
+.steps{display:grid;gap:18px;margin:26px 0 0;padding:0;list-style:none;counter-reset:s}
+.steps li{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:start}
+.steps li::before{counter-increment:s;content:counter(s);grid-row:span 2;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  font:400 1.3rem/1 var(--fh);color:var(--ink);background:linear-gradient(180deg,#ffe07a,var(--gold2));box-shadow:0 0 0 2px var(--ink),0 3px 0 2px var(--ink)}
+.steps b{font:400 1.3rem/1.2 var(--fh);color:var(--cream)}
+.steps span{color:var(--dim)}
+.titans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:clamp(44px,6vw,72px)}
+.titans figure{margin:0;overflow:hidden}
+.titans img{aspect-ratio:4/3;object-fit:cover;width:100%;border-bottom:2px solid var(--seam)}
+.titans figcaption{padding:12px 16px 14px;display:grid;gap:2px}
+.titans figcaption b{font:400 1.3rem var(--fh);color:var(--gold)}
+.titans figcaption span{font-size:.95rem;color:var(--dim)}
+
+/* ---- the campaign: three acts and an epilogue, as the campaign screen lists them ---- */
+.campaign{background:linear-gradient(180deg,var(--wood0),var(--wood1) 30%,var(--wood0))}
+.acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.act{--c:var(--hearth);--cd:var(--hearth-d);border:3px solid var(--c);border-radius:18px;overflow:hidden;background:var(--wood1)}
+.act.mire{--c:var(--mire);--cd:var(--mire-d)}.act.tide{--c:var(--tide);--cd:var(--tide-d)}
+.act header{display:flex;gap:12px;align-items:center;padding:14px 16px;background:linear-gradient(180deg,var(--cd),color-mix(in srgb,var(--cd) 50%,#000))}
+.act header .emblem{width:44px;height:44px}
+.act header .emblem svg{width:22px;height:22px}
+.act .n{font:800 .7rem var(--fb);letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+.act h3{font-size:1.5rem}
+.act .motto{font:700 .9rem var(--fb);font-style:italic;color:var(--dim)}
+.act ol{list-style:none;margin:0;padding:8px 10px 12px;display:grid;gap:4px;counter-reset:m}
+.act li{display:grid;grid-template-columns:28px 1fr;gap:2px 10px;align-items:center;padding:8px 8px;border-radius:12px}
+.act li:nth-child(odd){background:#ffffff07}
+.act li::before{counter-increment:m;content:counter(m);grid-row:span 2;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:400 .95rem/1 var(--fh);color:var(--c);border:2px solid var(--c)}
+.act li b{font:400 1.12rem/1.15 var(--fh);color:var(--cream)}
+.act li span{font:600 .85rem/1.25 var(--fb);color:var(--faint)}
+.epilogue{margin-top:18px;display:grid;grid-template-columns:auto 1fr auto;gap:12px 18px;align-items:center;padding:18px 20px;border-radius:18px;
+  border:3px solid transparent;background:linear-gradient(var(--wood1),var(--wood1)) padding-box,linear-gradient(90deg,var(--hearth),var(--mire),var(--tide)) border-box}
+.epilogue .emblem{border-color:var(--gold);color:var(--gold)}
+.epilogue h3{font-size:1.5rem}
+.epilogue p{color:var(--dim)}
+.epilogue .final-m{font:400 1.15rem var(--fh);color:var(--cream);text-align:right}
+.epilogue .final-m span{display:block;font:600 .85rem var(--fb);color:var(--faint)}
+.note{margin-top:16px;font:600 .95rem var(--fb);color:var(--faint);text-align:center}
+
+/* ---- more ways to fight ---- */
+.modes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.mode{overflow:hidden;display:flex;flex-direction:column}
+.mode img{aspect-ratio:16/10;object-fit:cover;width:100%;border-bottom:2px solid var(--seam)}
+.mode .body{padding:16px 18px 20px;display:grid;gap:8px;align-content:start}
+.mode h3{color:var(--gold)}
+.mode p{color:var(--dim);font-size:1rem}
+
+/* ---- on a phone, and the clips ---- */
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,6vw,80px);align-items:center}
+.device{border:8px solid #050302;border-radius:42px;padding:6px;background:#050302;box-shadow:0 0 0 2px var(--seam),0 24px 60px #000c;max-width:300px;margin-inline:auto}
+.device img{border-radius:32px;aspect-ratio:390/844;object-fit:cover;width:100%}
+.duo h2{margin:12px 0 16px}
+.keys-label{margin-top:26px;padding-top:20px;border-top:1px dashed #ffffff26}
+.keys{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin-top:12px;font-size:.98rem}
+.keys kbd{font:800 .8rem var(--fb);background:var(--cream);color:var(--ink);border-radius:8px;padding:3px 9px;justify-self:start;align-self:start;margin-top:2px;white-space:nowrap;box-shadow:0 2px 0 var(--brass)}
+.keys span{color:var(--dim)}
+.touch{display:grid;gap:12px;margin-top:22px}
+.touch div{display:flex;gap:12px;align-items:flex-start;color:var(--dim)}
+.touch b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font:400 1rem var(--fh);box-shadow:0 0 0 2px var(--ink)}
+.clip{position:relative;width:100%;max-width:300px;margin-inline:auto;aspect-ratio:9/16;border-radius:26px;overflow:hidden;border:2px solid #000;box-shadow:0 0 0 2px var(--seam),0 24px 60px #000c;background:#000}
+.clip>img{width:100%;height:100%;object-fit:cover}
+.clip .t{position:absolute;left:0;right:0;top:9%;text-align:center;font:400 1.55rem/1 var(--fh);color:var(--gold);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:0 3px 0 var(--ink);padding-inline:12px}
+.clip .t small{display:block;font:800 .62rem var(--fb);letter-spacing:.3em;color:var(--cream);-webkit-text-stroke:0;text-shadow:0 1px 3px #000;margin-bottom:6px}
+.clip .end{position:absolute;left:10%;right:10%;bottom:6%;display:grid;justify-items:center;gap:6px;padding:12px;border-radius:16px;background:#0b0705d9;border:1px solid #ffffff22;backdrop-filter:blur(6px)}
+.clip .end img{width:46%;background:#fff;padding:6px;border-radius:8px}
+.clip .end b{font:800 .66rem var(--fb);letter-spacing:.3em;color:var(--gold)}
+.ticks{display:grid;gap:10px;margin:22px 0 0;padding:0;list-style:none;color:var(--dim)}
+.ticks li{position:relative;padding-left:28px}
+.ticks li::before{content:"";position:absolute;left:4px;top:.5em;width:10px;height:10px;transform:rotate(45deg);background:var(--gold);box-shadow:0 0 0 2px var(--ink)}
+
+/* ---- questions ---- */
+.faq{max-width:780px;margin-inline:auto;display:grid;gap:12px}
+.faq details{border-radius:16px}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 20px;font:400 1.2rem/1.25 var(--fh)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font:400 1.3rem/1 var(--fh);box-shadow:0 0 0 2px var(--ink);transition:transform .15s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 20px 18px;color:var(--dim);max-width:40em}
+
+/* ---- the last call ---- */
+.final{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px 40px;align-items:center;padding:clamp(28px,4vw,48px);border-color:#5b4227;
+  background:radial-gradient(80% 120% at 0% 0%,#ffd54a1f,#0000 60%),linear-gradient(180deg,var(--wood2),var(--wood1))}
+.final h2{margin:10px 0 12px}
+.final p{color:var(--dim);max-width:30em}
+.final .ctas{margin-top:22px}
+.qr{display:grid;justify-items:center;gap:10px;text-align:center}
+.qr img{width:168px;height:168px;background:#fff;padding:10px;border-radius:14px;box-shadow:0 0 0 2px var(--ink),0 0 0 5px var(--brass)}
+.qr span{font:700 .9rem/1.3 var(--fb);color:var(--dim);max-width:13em}
+.link{display:flex;align-items:center;gap:8px;margin-top:16px;font:700 .95rem var(--fb);color:var(--faint);flex-wrap:wrap}
+.link code{font:700 .95rem var(--fb);color:var(--cream);background:#0008;border:1px solid #ffffff1f;border-radius:8px;padding:.15em .55em;user-select:all}
+footer{border-top:1px solid #ffffff14;padding-block:28px calc(28px + env(safe-area-inset-bottom,0px));color:var(--faint)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;font:700 .92rem var(--fb)}
+footer a{color:var(--cream);text-decoration:none}
+footer a:hover{text-decoration:underline}
+footer .social{display:flex;gap:16px}
+
+/* a Play bar that stays in reach on a phone, once the hero's button has scrolled away */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(180deg,#0b070500,var(--wood0) 40%);transform:translateY(110%);transition:transform .25s}
+.dock.on{transform:none}
+.dock .btn{width:100%}
+
+@media (max-width:1020px){
+  .modes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  nav .links a:not(.btn){display:none}
+}
+@media (max-width:860px){
+  .cards,.acts,.titans{grid-template-columns:minmax(0,1fr)}
+  .loop,.duo{grid-template-columns:minmax(0,1fr)}
+  .cards{gap:26px}
+}
+@media (max-width:760px){
+  body{font-size:1rem}
+  /* on a phone the hero is the three cards first, then the wordmark and Play under them, all in the first screen */
+  .hero{padding-bottom:74px}
+  .hero-grid{display:flex;flex-direction:column;gap:6px;padding-top:12px}
+  .fan{order:1;max-width:420px;margin-inline:auto;aspect-ratio:10/6.9}
+  .fc figcaption{padding:6px 8px 8px}
+  .fc figcaption small{font-size:.5rem;letter-spacing:.1em}
+  .hero .copy{order:2;text-align:center;max-width:none}
+  .sub{margin-left:0;letter-spacing:.32em}
+  .wordmark{font-size:clamp(2.9rem,15vw,4.6rem)}
+  .ctas{justify-content:center}
+  .ctas .btn{flex:1 1 100%}
+  .chips{justify-content:center}
+  .hero .lede{margin-inline:auto}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats li:nth-child(3){border-left:0}
+  .stats li:nth-child(n+3){border-top:1px solid #ffffff14}
+  .modes{grid-template-columns:minmax(0,1fr)}
+  .epilogue{grid-template-columns:auto 1fr}
+  .epilogue .kicker{letter-spacing:.14em}
+  .epilogue .final-m{grid-column:1/-1;text-align:left;padding-top:10px;border-top:1px dashed #ffffff26}
+  .final{grid-template-columns:minmax(0,1fr);text-align:center}
+  .final p{margin-inline:auto}
+  .final .ctas{justify-content:center}
+  .final .qr{display:none}
+  .link{justify-content:center}
+  .dock{display:block}
+  footer{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+  .faq summary{font-size:1.1rem;padding:14px 16px}
+  .faq details p{padding:0 16px 16px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn,.dock,.faq summary::after{transition:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- the three peoples' marks, as the table draws them: an arch, a jaw, a spiral -->
+  <symbol id="i-hearth" viewBox="0 0 24 24"><path d="M4 21V11a8 8 0 0 1 16 0v10h-4.5v-9a3.5 3.5 0 0 0-7 0v9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mire" viewBox="0 0 24 24"><path d="M2.5 7h19M2.5 17h19M4 7l2.2 4L8.4 7l2.2 4 2.2-4 2.2 4 2.2-4 2.2 4L21 7M4 17l2.2-4 2.2 4 2.2-4 2.2 4 2.2-4 2.2 4 2.2-4L21 17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-tide" viewBox="0 0 24 24"><path d="M12.2 12.4a1.4 1.4 0 1 1-1.6-1.9 3.2 3.2 0 1 1-1.3 5.6 5.2 5.2 0 1 1 7.4-7.4 7.3 7.3 0 1 1-10.4 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><path d="M6.5 10.5V8a5.5 5.5 0 0 1 11 0v2.5M5 10.5h14v10H5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></symbol>
+</svg>
+
+<header class="hero" id="top">
+  <img class="table" src="img/table.webp" width="1120" height="900" alt="" fetchpriority="low">
+  <div class="wrap">
+    <nav>
+      <a class="home" href="../"><img src="../brand/icon-128.png" alt="" width="34" height="34"><span>CLI Tortoises</span></a>
+      <div class="links"><a href="#peoples">The peoples</a><a href="#war">The war</a><a href="#campaign">Campaign</a><a href="#faq">Questions</a></div>
+    </nav>
+    <div class="hero-grid">
+      <div class="copy">
+        <p class="sub">The Shell War</p>
+        <h1 class="wordmark"><span>Wartles</span><span><i>&amp;</i>Wartioses</span></h1>
+        <p class="lede">A real-time war of turtles and tortoises, fought for the shards of an island on the Elder's war table. Dig,
+          build, raise an army, and wake a titan with a whole camp on its back.</p>
+        <div class="ctas">
+          <a class="btn big" id="play" href="../game.html?demo#wartles" data-play><svg aria-hidden="true"><use href="#i-play"/></svg><span>Play free</span></a>
+          <a class="btn ghost" href="#peoples">Meet the peoples</a>
+        </div>
+        <ul class="chips"><li>Free</li><li>Phone or computer</li><li>No download</li><li>Saves as you play</li></ul>
+      </div>
+      <div class="fan" aria-hidden="true">
+        <figure class="fc hearth"><img src="img/hearth.webp" width="720" height="540" alt="" fetchpriority="high"><figcaption><small>Tortoises</small><b>Hearthshell Legion</b></figcaption></figure>
+        <figure class="fc mire"><img src="img/mire.webp" width="720" height="540" alt="" fetchpriority="high"><figcaption><small>Turtles</small><b>Mire Pact</b></figcaption></figure>
+        <figure class="fc tide"><img src="img/tide.webp" width="720" height="540" alt="" fetchpriority="high"><figcaption><small>Sea turtles</small><b>Tidecallers</b></figcaption></figure>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="facts wrap">
+  <ul class="stats panel" aria-label="At a glance">
+    <li><b>3</b><span>peoples to lead</span></li>
+    <li><b>16</b><span>missions in the story</span></li>
+    <li><b>10</b><span>islands to fight on</span></li>
+    <li><b>3</b><span>titans to wake</span></li>
+  </ul>
+</div>
+
+<main>
+  <section class="peoples" id="peoples">
+    <div class="wrap">
+      <div class="head mid">
+        <p class="kicker">Choose your people</p>
+        <h2>Three peoples. <em>One island.</em></h2>
+        <p class="lede">The tortoises are the Wartioses. The turtles of the mire and the sea are the Wartles. Each fights its own
+          way, and each has a titan that sleeps until you've earned it.</p>
+      </div>
+      <div class="cards">
+        <article class="people hearth">
+          <header>
+            <span class="emblem"><svg aria-hidden="true"><use href="#i-hearth"/></svg></span>
+            <div><p class="kind">Tortoises · the Wartioses</p><h3>Hearthshell Legion</h3><p class="leader">Marshal Granitebrow · <q>We stay.</q></p></div>
+          </header>
+          <div class="art"><img src="img/hearth.webp" width="720" height="540" loading="lazy" alt="A Hearthshell tortoise in front of its stone-walled hill"></div>
+          <div class="body">
+            <p class="blurb">Slow, armoured and very hard to shift. They dig in, wall up, and throw boulders over the walls.</p>
+            <div class="tags"><span class="tag">Heavy armour</span><span class="tag">Stone Arches over open water</span><span class="tag">Fortifications</span><span class="tag">Long-range boulders</span></div>
+            <ul class="specials">
+              <li><b>Shell Up</b>: they can't move, but they mend and shrug off blows</li>
+              <li><b>Toll the Stone</b>: stuns every foe nearby</li>
+            </ul>
+            <p class="titan"><svg aria-hidden="true"><use href="#i-lock"/></svg><span>Titan: <b>Hornback</b>, a fortress on a tortoise's back</span></p>
+          </div>
+        </article>
+        <article class="people mire">
+          <header>
+            <span class="emblem"><svg aria-hidden="true"><use href="#i-mire"/></svg></span>
+            <div><p class="kind">Turtles · the Wartles</p><h3>Mire Pact</h3><p class="leader">Grandmother Snapjaw · <q>Many mouths.</q></p></div>
+          </header>
+          <div class="art"><img src="img/mire.webp" width="720" height="540" loading="lazy" alt="A spiked Mire Pact snapper in the shallows of its swamp"></div>
+          <div class="body">
+            <p class="blurb">Quick in the shallows and never alone. They come in numbers, wait under the mud, and spread the Mire
+              wherever they go.</p>
+            <div class="tags"><span class="tag">Quick in the shallows</span><span class="tag">Reedrafts over open water</span><span class="tag">Numbers</span><span class="tag">Ambush</span></div>
+            <ul class="specials">
+              <li><b>Buried Softshells</b>: unseen until they bite, for double</li>
+              <li><b>The Bloom</b>: poisons, and the ground stays Mire</li>
+            </ul>
+            <p class="titan"><svg aria-hidden="true"><use href="#i-lock"/></svg><span>Titan: <b>Broodmother</b>, a mangrove village on her shell</span></p>
+          </div>
+        </article>
+        <article class="people tide">
+          <header>
+            <span class="emblem"><svg aria-hidden="true"><use href="#i-tide"/></svg></span>
+            <div><p class="kind">Sea turtles · the Wartles</p><h3>Tidecallers</h3><p class="leader">Mother Undertow · <q>We return.</q></p></div>
+          </header>
+          <div class="art"><img src="img/tide.webp" width="720" height="540" loading="lazy" alt="A Tidecaller sea turtle under the waves, light falling through the water"></div>
+          <div class="body">
+            <p class="blurb">Few, but strong, and at home in the sea. Their shields harden again, and they mine the shards off the
+              sunken reef.</p>
+            <div class="tags"><span class="tag">Swift at sea</span><span class="tag">Mines the sunken reef</span><span class="tag">Shields that harden again</span><span class="tag">Few, but strong</span></div>
+            <ul class="specials">
+              <li><b>Hardening Shells</b>: back in seconds, twice as fast in water</li>
+              <li><b>Call the Tide</b>: the sea floods the island</li>
+            </ul>
+            <p class="titan"><svg aria-hidden="true"><use href="#i-lock"/></svg><span>Titan: <b>Archelon</b>, coral domes on her back</span></p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="war">
+    <div class="wrap">
+      <div class="loop">
+        <div class="shot panel"><img src="img/battle.webp" width="1600" height="900" loading="lazy" alt="A battle on Shellhaven: the Hearthshell Legion's line and its titan Hornback, a fortress on its back, against the Mire Pact's snappers and their titan Broodmother, boulders bursting between them"></div>
+        <div>
+          <p class="kicker">How a war goes</p>
+          <h2>Dig. Build. <em>Shell up.</em></h2>
+          <ol class="steps">
+            <li><b>Dig shards</b><span>Your Diggers work the island's shard seams; the Tidecallers mine the sunken reef too. Shards buy
+              your works and your shells.</span></li>
+            <li><b>Raise your works</b><span>Stables, forges and watchtowers. Open water is a wall: tortoises arch it in stone, pond
+              turtles raft it with reeds, sea turtles swim, and anyone can wade a ford at low tide.</span></li>
+            <li><b>Send in the shells</b><span>Biters at the front, boulders over the top, and carriers that float a platoon across the
+              sea. Drag a box round them, then right-click (or tap, on a phone) where they should go.</span></li>
+            <li><b>Call down a special</b><span>War drums, a rockslide and more, won in the campaign and called down where you point.
+              And each people has its own great power: a stone that stuns, a poison bloom, a flood.</span></li>
+          </ol>
+        </div>
+      </div>
+      <div class="titans">
+        <figure class="panel"><img src="img/titan-hornback.webp" width="720" height="540" loading="lazy" alt="Hornback, a giant tortoise carrying a stone fortress"><figcaption><b>Hornback</b><span>The Legion's titan: a walking fortress</span></figcaption></figure>
+        <figure class="panel"><img src="img/titan-broodmother.webp" width="720" height="540" loading="lazy" alt="Broodmother, a giant turtle carrying a mangrove village"><figcaption><b>Broodmother</b><span>The Pact's titan: a mangrove village</span></figcaption></figure>
+        <figure class="panel"><img src="img/titan-archelon.webp" width="720" height="540" loading="lazy" alt="Archelon, a giant sea turtle carrying coral domes"><figcaption><b>Archelon</b><span>The Tide's titan: a reef of coral domes</span></figcaption></figure>
+      </div>
+      <p class="note">Earn Mastery with a people, raise its titan's hall, and wake it, one at a time. Each titan is a camp that walks.</p>
+    </div>
+  </section>
+
+  <section class="campaign" id="campaign">
+    <div class="wrap">
+      <div class="head">
+        <p class="kicker">The campaign</p>
+        <h2>The Shell War, <em>as the Elder tells it.</em></h2>
+        <p class="lede">Five missions for each people, each on its own island and in its own season, with heroes from the Elder's
+          stories. Then an epilogue, where all three must fight together.</p>
+      </div>
+      <div class="acts">
+        <article class="act hearth">
+          <header><span class="emblem"><svg aria-hidden="true"><use href="#i-hearth"/></svg></span><div><p class="n">Act I · Hearthshell Legion</p><h3>The Legion</h3><p class="motto">“We stay.”</p></div></header>
+          <ol>
+            <li><b>Slow and Steady</b><span>Granite Spine · the first summer of the war</span></li>
+            <li><b>Over Troubled Water</b><span>The Narrows · high summer</span></li>
+            <li><b>Boulders Over the Wall</b><span>The Old Stables · the end of summer</span></li>
+            <li><b>The Bastion Run</b><span>Scattered Pearls · autumn</span></li>
+            <li><b>The Bell and the Barrow</b><span>Shellhaven · the first frost</span></li>
+          </ol>
+        </article>
+        <article class="act mire">
+          <header><span class="emblem"><svg aria-hidden="true"><use href="#i-mire"/></svg></span><div><p class="n">Act II · Mire Pact</p><h3>The Pact</h3><p class="motto">“Many mouths.”</p></div></header>
+          <ol>
+            <li><b>Mud in Your Eye</b><span>The Hundred Channels · the next spring</span></li>
+            <li><b>A Raft of Trouble</b><span>Crown Atoll · midsummer</span></li>
+            <li><b>Down in the Deepmud</b><span>The Sunken Crater · late summer</span></li>
+            <li><b>Bigger, Grandmother</b><span>The Long Beach · autumn</span></li>
+            <li><b>Mother of All Snappers</b><span>Shellhaven · the hill, in the rain</span></li>
+          </ol>
+        </article>
+        <article class="act tide">
+          <header><span class="emblem"><svg aria-hidden="true"><use href="#i-tide"/></svg></span><div><p class="n">Act III · Tidecallers</p><h3>The Tide</h3><p class="motto">“We return.”</p></div></header>
+          <ol>
+            <li><b>Hatchlings to the Sea</b><span>The Long Beach · the nesting moon</span></li>
+            <li><b>Pearl Diving</b><span>Scattered Pearls · the long calm</span></li>
+            <li><b>Leatherback Thunder</b><span>Crown Atoll · the storm season</span></li>
+            <li><b>The Biggest Shell</b><span>Ember Caldera · the long night</span></li>
+            <li><b>The Great Tide</b><span>Shellhaven · the last night of the war</span></li>
+          </ol>
+        </article>
+      </div>
+      <div class="epilogue">
+        <span class="emblem"><svg aria-hidden="true"><use href="#i-star"/></svg></span>
+        <div><p class="kicker">Epilogue · Shellhaven, now</p><h3>All of Us</h3><p>“We stay. Many mouths. We return.”</p></div>
+        <p class="final-m">Bigger Than All of Us<span>Lead any of the three, with the other two at your side</span></p>
+      </div>
+      <p class="note">Win missions to win specials and commanders: nine specials and six commanders in all.</p>
+    </div>
+  </section>
+
+  <section id="modes">
+    <div class="wrap">
+      <div class="head">
+        <p class="kicker">More ways to fight</p>
+        <h2>One more war. <em>Then bed.</em></h2>
+      </div>
+      <div class="modes">
+        <article class="mode panel"><img src="img/skirmish.webp" width="800" height="500" loading="lazy" alt="Choosing a people for a skirmish"><div class="body"><h3>Skirmish</h3>
+          <p>Your people against one or both of the others, on any of ten islands, with five kinds of shore from dunes to ice. Easy, Normal or Hard.</p></div></article>
+        <article class="mode panel"><img src="img/raid.webp" width="800" height="500" loading="lazy" alt="The Clatter's crabs coming up the beach"><div class="body"><h3>Raid</h3>
+          <p>Hold the beach against the Clatter: three, five or seven waves of crabs up the sand at low tide. A horn sounds before each one.</p></div></article>
+        <article class="mode panel"><img src="img/armoury.webp" width="800" height="500" loading="lazy" alt="A Boulderback in the Armoury, a catapult on its shell"><div class="body"><h3>Armoury</h3>
+          <p>Every shell of every people up close, what it costs and what it's for. The titans and the heroes of the stories too.</p></div></article>
+        <article class="mode panel"><img src="img/commander.webp" width="800" height="500" loading="lazy" alt="Sapper Mossback, a hero of the stories"><div class="body"><h3>Commander</h3>
+          <p>Your Mastery with each people, and what it wakes: its titan, its specials, and commanders to lead with.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="campaign" id="phone">
+    <div class="wrap duo">
+      <div class="device"><img src="img/phone.webp" width="780" height="1688" loading="lazy" alt="The war table on a phone held upright, the map folded away and the view clear"></div>
+      <div class="phone-copy">
+        <p class="kicker">On your phone</p>
+        <h2>A whole war <em>in one hand.</em></h2>
+        <p class="lede">The table has its own phone layout. The map folds away, the orders sit under your thumb, and the island
+          stays clear for the fight. The game picks its graphics to suit your phone.</p>
+        <div class="touch">
+          <div><b>1</b><p>Tap a shell to pick it. Select lets you drag a box round several.</p></div>
+          <div><b>2</b><p>Tap where they should go, and they do the obvious thing there: walk, attack, gather shards, board a raft.</p></div>
+          <div><b>3</b><p>Army, Diggers and All pick them all at once; tap one twice to look at them. Pinch to zoom.</p></div>
+        </div>
+        <p class="label keys-label">On a computer</p>
+        <div class="keys">
+          <kbd>Click · drag</kbd><span>Pick a shell, or drag a box round several</span>
+          <kbd>Right-click</kbd><span>Walk, attack, gather or board, wherever you click</span>
+          <kbd>A</kbd><span>Then click: attack-move, fighting anything on the way</span>
+          <kbd>F2 · F3 · F4</kbd><span>Your army, your builders, everyone (twice to look)</span>
+          <kbd>B · R</kbd><span>Build with a worker · rally a work's new shells</span>
+          <kbd>F8</kbd><span>Keep the last ten seconds for your clip</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="clips">
+    <div class="wrap duo">
+      <div>
+        <p class="kicker">Share your war</p>
+        <h2>Your best moments, <em>cut for you.</em></h2>
+        <p class="lede">The table films your war as you play it, on your own device, and keeps the big moments. When the war is over,
+          it cuts them into a clip that's ready to post.</p>
+        <ul class="ticks">
+          <li>A titan waking, a superweapon going off, the ending in slow motion</li>
+          <li>Tall for TikTok and Reels, or wide for X and YouTube</li>
+          <li>Titled, with its own sound, and a QR code to play at the end</li>
+        </ul>
+      </div>
+      <figure class="clip" aria-label="A clip as the table cuts it: the war's name, the fight, and a QR code to play">
+        <img src="img/clip.webp" width="540" height="960" loading="lazy" alt="">
+        <p class="t"><small>WARTLES &amp; WARTIOSES</small>The Hundred Channels</p>
+        <div class="end"><img src="qr.svg" width="160" height="160" alt=""><b>SCAN TO PLAY</b></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="campaign" id="faq">
+    <div class="wrap">
+      <div class="head mid">
+        <p class="kicker">Questions</p>
+        <h2>Before you <em>march</em></h2>
+      </div>
+      <div class="faq">
+        <details class="panel" open><summary>Is it really free?</summary>
+          <p>Yes. Every people, every mission and every way to fight, free in your browser.</p></details>
+        <details class="panel"><summary>Do I need to play CLI Tortoises first?</summary>
+          <p>No. This link opens the war table straight away. The table stands in the Elder's camp on Shellhaven, in CLI Tortoises:
+            leave the table, and you're on the island.</p></details>
+        <details class="panel"><summary>Will it run on my phone?</summary>
+          <p>Yes. The war table has its own phone layout, and the game picks graphics to suit your device, stepping them down if it
+            can't keep up.</p></details>
+        <details class="panel"><summary>Where does my progress go?</summary>
+          <p>It's kept in this browser: the missions you've won, your Mastery with each people, and what it's woken.</p></details>
+        <details class="panel"><summary>Can I fight my friends?</summary>
+          <p>Not yet. For now you fight the table's own commanders, on Easy, Normal or Hard.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="final panel">
+        <div>
+          <p class="kicker">Wartles &amp; Wartioses</p>
+          <h2>The table is set. <em>Pick a people.</em></h2>
+          <p>Free, in your browser, on your phone or a computer. It saves as you play.</p>
+          <div class="ctas">
+            <a class="btn big" id="play2" href="../game.html?demo#wartles" data-play><svg aria-hidden="true"><use href="#i-play"/></svg><span>Play free</span></a>
+            <button class="btn ghost" type="button" id="share">Share the link</button>
+          </div>
+          <p class="link"><span>Or tell a friend:</span><code id="url">tensorrent.github.io/<wbr>CLI-Tortoises-Demo/<wbr>wartles</code></p>
+        </div>
+        <div class="qr"><img src="qr.svg" width="168" height="168" alt="QR code for this page"><span>On a computer? Scan it to play on your phone.</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Wartles &amp; Wartioses is the war table in <a href="../">CLI Tortoises</a></span>
+    <span class="social"><a href="https://discord.gg/clitortoises" rel="noopener">Discord</a><a href="https://twitter.com/clitortoises" rel="noopener">Twitter</a></span>
+  </div>
+</footer>
+
+<div class="dock" id="dock"><a class="btn big" href="../game.html?demo#wartles" data-play><svg aria-hidden="true"><use href="#i-play"/></svg><span>Play free</span></a></div>
+
+<script>
+(function () {
+  // the Play bar on a phone shows while neither of the page's own Play buttons is in sight
+  var dock = document.getElementById("dock"), seen = {};
+  if (dock && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { seen[e.target.id] = e.isIntersecting; });
+      dock.classList.toggle("on", !seen.play && !seen.play2);
+    }, { threshold: 0 });
+    ["play", "play2"].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
+
+  // Share: the phone's own share sheet where there is one, else the link copied
+  var share = document.getElementById("share"), url = "https://tensorrent.github.io/CLI-Tortoises-Demo/wartles/";
+  if (share) share.addEventListener("click", function () {
+    var said = function (t) { share.textContent = t; setTimeout(function () { share.textContent = "Share the link"; }, 2200); };
+    if (navigator.share) { navigator.share({ title: "Wartles & Wartioses", text: "Turtles against tortoises: a free war in your browser.", url: url }).catch(function () {}); return; }
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { said("Link copied"); }, function () { said("Copy it from below"); });
+    else said("Copy it from below");
+  });
+})();
+</script>
+</body>
+</html>
