@@ -5,11 +5,11 @@ and command the Wartles war table. It runs in the browser on a phone or a comput
 **Play free**. There's nothing to install and no wallet to connect.
 
 - `index.html` is the landing page, and `game.html` is the game. `wartles/` is the war table's own page (Wartles &
-  Wartioses), the one its clips send people to.
+  Wartices), the one its clips send people to.
 - Your progress stays in this browser.
 
 This site is built from [tensorrent/CLI--Tortoises](https://github.com/tensorrent/CLI--Tortoises) at
-`f2988b0b2ccc`. That repo holds the source, the tests, the save server and the build:
+`05b0cd478aec`. That repo holds the source, the tests, the save server and the build:
 
 ```sh
 cd app && npm install && npm run build:demo
