@@ -2,24 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>CLI Tortoises: tame a tortoise, ride the islands</title>
 <meta name="description" content="A free creature-taming adventure in your browser. Battle and tame wild tortoises, ride out across a sea where every island is a turtle, and raise a tortoise that remembers every choice you make. Phone or computer.">
+<link rel="canonical" href="https://tensorrent.github.io/CLI-Tortoises-Demo/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tensorrent.github.io/CLI-Tortoises-Demo/">
 <meta property="og:title" content="CLI Tortoises: tame a tortoise, ride the islands, wake the sea">
 <meta property="og:description" content="A free creature-taming adventure. Every island is a turtle, and your tortoise remembers every choice you make together. Play in your browser on phone or computer.">
 <meta property="og:image" content="https://tensorrent.github.io/CLI-Tortoises-Demo/shots/island.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#5cb7ef">
 <link rel="icon" type="image/png" href="brand/icon-128.png">
 <link rel="apple-touch-icon" href="brand/icon-128.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap">
+<link rel="stylesheet" href="fonts/fonts.css">
 <style>
 :root{
   --ink:#241710;--ink2:#5b4636;--cream:#fff7e6;--sand:#f6e7c4;--sand2:#eed8a6;
   --sky1:#b6e6ff;--sky2:#62b9ef;--sky3:#2d84cc;--sea:#155a8f;--deep:#0c3a60;
   --sun:#ffd23f;--pink:#ec1a8c;--pink2:#ff7cc0;--leaf:#5fb046;--rose:#ff6f91;
-  --fh:"Fredoka","Baloo 2",ui-rounded,"Arial Rounded MT Bold","Segoe UI",system-ui,sans-serif;
+  --fh:"Baloo 2",ui-rounded,"Arial Rounded MT Bold","Segoe UI",system-ui,sans-serif;
   --fb:"Nunito",ui-rounded,"Segoe UI",system-ui,sans-serif;
   --r:22px;--line:3px;--lift:0 5px 0 var(--ink);
   color-scheme:light;
@@ -208,6 +212,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
 footer .social{display:flex;gap:16px}
 footer a{color:#fff;text-decoration:none}
 footer a:hover{text-decoration:underline}
+footer .credits{flex-basis:100%;font:600 .8rem/1.5 var(--fb);color:#bfae97}
 
 /* a Play bar that stays in reach on a phone, once the hero's button has scrolled away */
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));
@@ -296,7 +301,7 @@ footer a:hover{text-decoration:underline}
 
 <div class="facts wrap">
   <ul class="stats card" aria-label="At a glance">
-    <li><b>10,000</b><span>tortoises, no two alike</span></li>
+    <li><b>10,000</b><span>tortoises, each with its own mind</span></li>
     <li><b>65</b><span>living islands to explore</span></li>
     <li><b>4</b><span>ways to play</span></li>
     <li><b>2</b><span>chapters of story</span></li>
@@ -368,12 +373,12 @@ footer a:hover{text-decoration:underline}
           </div>
         </article>
         <article class="who card">
-          <img src="shots/shrimp.jpg" width="1600" height="900" loading="lazy" style="object-position:48% 60%" alt="Dr. Bubba Gump Shrimp, a pistol shrimp, at his cleaning station on the shore">
+          <img src="shots/shrimp.jpg" width="1600" height="900" loading="lazy" style="object-position:48% 60%" alt="Dr. Snapwell, a pistol shrimp, at his cleaning station on the shore">
           <div class="body">
             <p class="role">The cleaning station</p>
-            <h3>Dr. Bubba Gump Shrimp</h3>
-            <q>Next! Oh, nobody's next. Welcome to the cleaning station. Doctor Bubba Gump Shrimp, at your service.</q>
-            <button class="btn sm hear" type="button" data-voice="audio/shrimp/ed39d97a5.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
+            <h3>Dr. Snapwell</h3>
+            <q>I clean what swims in: shells, beaks, the odd fin. The island-turtle is my biggest patient. Every morning, and never once a thank you.</q>
+            <button class="btn sm hear" type="button" data-voice="audio/shrimp/e4a98b41d.mp3"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>Hear him</button>
           </div>
         </article>
         <article class="who card">
@@ -449,7 +454,7 @@ footer a:hover{text-decoration:underline}
             <span class="tag new">Strategy</span>
             <h3>Wartles &amp; Wartoises</h3>
             <p class="dim">Lead a people of turtles. Dig shards, raise an army and hold off the Clatter's crab raids, across
-              fifteen missions or a quick skirmish.</p>
+              sixteen missions or a quick skirmish.</p>
             <a class="btn sm page" href="wartles/">Meet the three peoples</a>
           </div>
         </article>
@@ -465,7 +470,7 @@ footer a:hover{text-decoration:underline}
     <div class="wrap">
       <div class="head mid">
         <p class="kicker"><b>07</b>The herd</p>
-        <h2>10,000 tortoises. <em>No two alike.</em></h2>
+        <h2>10,000 tortoises, <em>each with its own mind.</em></h2>
         <p class="lede dim">Each has its own shell, print, skin, hat, neckwear and shoes. Meet them roaming the islands, battle
           them, and ride the ones you tame.</p>
       </div>
@@ -509,11 +514,9 @@ footer a:hover{text-decoration:underline}
         <details class="card" open><summary>Is it really free?</summary>
           <p>Yes. Both chapters and every way to play, right here in your browser.</p></details>
         <details class="card"><summary>Do I need a crypto wallet?</summary>
-          <p>No. The tortoises are a collection on the Chia blockchain, but you don't need a wallet or a token to play. Linking
-            a wallet is optional, and only for collectors.</p></details>
+          <p>No. Tortoises can be minted as NFTs on Chia (not in this demo), but you don't need a wallet or a token to play.</p></details>
         <details class="card"><summary>Where does my progress go?</summary>
-          <p>It saves in this browser as you play, and picks up where you left off. Make a free account to keep it safe on
-            another device and to show up on the leaderboards.</p></details>
+          <p>Progress stays in this browser. Accounts, leaderboards and wallet linking are not part of this demo.</p></details>
         <details class="card"><summary>Will it run on my phone?</summary>
           <p>Yes. It's built to play with one thumb, and it picks its graphics to suit your device. A computer with a keyboard
             works just as well.</p></details>
@@ -538,52 +541,14 @@ footer a:hover{text-decoration:underline}
 
 <footer>
   <div class="wrap">
-    <span>CLI Tortoises · 10,000 tortoises with minds of their own</span>
-    <span class="social"><a href="https://discord.gg/clitortoises" rel="noopener">Discord</a><a href="https://twitter.com/clitortoises" rel="noopener">Twitter</a></span>
+    <span>CLI Tortoises · 10,000 tortoises with minds of their own · run by KOBA42 / TensorRent</span>
+    <span class="social"><a href="privacy.html">Privacy</a><a href="https://koba42.com" rel="noopener">Contact</a><a href="https://twitter.com/clitortoises" rel="noopener">Twitter</a></span>
+    <p class="credits">Sound effects by Kenney and animals by Quaternius (CC0). Fonts: Nunito and Baloo 2 (SIL Open Font License). Built with three.js (MIT). The characters' voices are synthetic.</p>
   </div>
 </footer>
 
 <div class="dock" id="dock"><a class="btn go" href="game.html?demo" data-play><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span>Play free</span></a></div>
 
-<script>
-(function () {
-  // someone with a saved game in this browser goes straight back to it
-  var saved = false;
-  try { saved = !!localStorage.getItem("cli-tortoises.v3"); } catch (e) { saved = false; }
-  if (saved) {
-    document.querySelectorAll("[data-play]").forEach(function (a) {
-      a.setAttribute("href", "game.html");
-      var s = a.querySelector("span"); if (s && a.id === "play") s.textContent = "Continue your island";
-    });
-  }
-
-  // the Play bar on a phone shows while neither of the page's own Play buttons is in sight
-  var dock = document.getElementById("dock"), seen = {};
-  if (dock && "IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { seen[e.target.id] = e.isIntersecting; });
-      dock.classList.toggle("on", !seen.play && !seen.play2);
-    }, { threshold: 0 });
-    ["play", "play2"].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
-  }
-
-  // the cast's voices: one at a time, from the game's own recordings
-  var playing = null, btnOn = null;
-  document.querySelectorAll("[data-voice]").forEach(function (b) {
-    b.addEventListener("click", function () {
-      if (btnOn === b && playing && !playing.paused) { playing.pause(); b.classList.remove("on"); btnOn = null; return; }
-      if (playing) playing.pause();
-      if (btnOn) btnOn.classList.remove("on");
-      playing = new Audio(b.getAttribute("data-voice")); btnOn = b; b.classList.add("on");
-      playing.addEventListener("ended", function () { b.classList.remove("on"); if (btnOn === b) btnOn = null; });
-      playing.play().catch(function () { b.classList.remove("on"); btnOn = null; });
-    });
-  });
-
-  // the parade loops seamlessly: a second copy of the herd follows the first
-  var row = document.querySelector(".parade .row");
-  if (row) row.innerHTML += row.innerHTML;
-})();
-</script>
+<script src="site.js"></script>
 </body>
 </html>

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Wartles &amp; Wartoises</title>
 <meta name="description" content="Turtles against tortoises: a free real-time war in your browser, on phone or computer. Lead one of three peoples, dig shards, raise an army and wake a titan, across sixteen missions, skirmishes and crab raids.">
@@ -19,9 +21,7 @@
 <meta name="theme-color" content="#120b07">
 <link rel="icon" type="image/png" href="../brand/icon-128.png">
 <link rel="apple-touch-icon" href="../brand/icon-128.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&amp;family=Baloo+2:wght@500;600;700;800&amp;display=swap">
+<link rel="stylesheet" href="../fonts/fonts.css">
 <style>
 /* the war table's own colours: lacquered wood, brass and gold, and one colour for each people */
 :root{
@@ -29,7 +29,7 @@
   --ink:#2a1406;--cream:#fff3dc;--dim:#d8c3a0;--faint:#a8916f;
   --gold:#ffd54a;--gold2:#f2a326;--brass:#c99a3d;
   --hearth:#e0832f;--hearth-d:#6e3d1c;--mire:#8cbf3a;--mire-d:#33461f;--tide:#35c3d6;--tide-d:#1b4f5a;--clatter:#e5523f;
-  --fh:"Lilita One","Arial Rounded MT Bold",ui-rounded,"Segoe UI",system-ui,sans-serif;
+  --fh:"Baloo 2","Arial Rounded MT Bold",ui-rounded,"Segoe UI",system-ui,sans-serif;
   --fb:"Baloo 2",ui-rounded,"Segoe UI",system-ui,sans-serif;
   --r:18px;
   color-scheme:dark;
@@ -40,7 +40,7 @@ body{margin:0;background:var(--wood0);color:var(--cream);font:500 1.0625rem/1.55
 img{max-width:100%;height:auto;display:block}
 a{color:inherit}
 p{margin:0}
-h1,h2,h3{font-family:var(--fh);font-weight:400;line-height:1.02;letter-spacing:.005em;margin:0;text-wrap:balance}
+h1,h2,h3{font-family:var(--fh);font-weight:800;line-height:1.02;letter-spacing:.005em;margin:0;text-wrap:balance}
 h2{font-size:clamp(2.1rem,5vw,3.5rem);color:var(--gold);text-shadow:0 3px 0 var(--ink)}
 h2 em{font-style:normal;color:var(--cream);display:block}
 h3{font-size:clamp(1.35rem,2.4vw,1.65rem)}
@@ -50,7 +50,7 @@ h3{font-size:clamp(1.35rem,2.4vw,1.65rem)}
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
 
 /* buttons: the war table's own, gold and chunky */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font:400 1.2rem var(--fh);letter-spacing:.01em;text-decoration:none;color:var(--ink);
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font:800 1.2rem var(--fh);letter-spacing:.01em;text-decoration:none;color:var(--ink);
   background:linear-gradient(180deg,#ffe07a,var(--gold) 45%,var(--gold2));border:2px solid #fff3c4;border-radius:14px;padding:.62em 1.3em;
   box-shadow:0 0 0 2px var(--ink),0 6px 0 2px var(--ink),0 10px 26px #ffb43a40;transition:transform .12s,box-shadow .12s;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .btn:hover{transform:translateY(-2px);box-shadow:0 0 0 2px var(--ink),0 8px 0 2px var(--ink),0 14px 30px #ffb43a55}
@@ -87,14 +87,14 @@ nav .links a:hover{background:#ffffff14;color:var(--cream)}
 .fc img{aspect-ratio:4/3;object-fit:cover;width:100%;border-bottom:2px solid #000}
 .fc figcaption{padding:9px 12px 11px;background:linear-gradient(180deg,var(--cd),color-mix(in srgb,var(--cd) 50%,#000))}
 .fc figcaption small{display:block;font:800 .62rem var(--fb);letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
-.fc figcaption b{display:block;font:400 clamp(1rem,1.9vw,1.3rem)/1.05 var(--fh);text-transform:uppercase;color:var(--cream)}
+.fc figcaption b{display:block;font:800 clamp(1rem,1.9vw,1.3rem)/1.05 var(--fh);text-transform:uppercase;color:var(--cream)}
 .fc.hearth{left:0;transform:rotate(-8deg) translateY(6%)}
 .fc.mire{--c:var(--mire);--cd:var(--mire-d);left:29.5%;top:0;z-index:2;transform:scale(1.06)}
 .fc.tide{--c:var(--tide);--cd:var(--tide-d);right:0;transform:rotate(8deg) translateY(6%)}
 .fc.tide figcaption{text-align:right}
 .fan:hover .fc.hearth{transform:rotate(-10deg) translate(-4%,4%)}.fan:hover .fc.tide{transform:rotate(10deg) translate(4%,4%)}
 .sub{font:800 clamp(.72rem,1.4vw,.86rem) var(--fb);letter-spacing:.42em;text-transform:uppercase;color:var(--cream);opacity:.92;margin:0 0 6px 4px}
-.wordmark{font:400 clamp(3rem,6.3vw,5.9rem)/.86 var(--fh);color:var(--gold);letter-spacing:.01em;text-transform:uppercase;
+.wordmark{font:800 clamp(3rem,6.3vw,5.9rem)/.86 var(--fh);color:var(--gold);letter-spacing:.01em;text-transform:uppercase;
   -webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:0 6px 0 var(--ink),0 0 50px #ffb45a55;margin:0}
 .wordmark span{display:block}
 .wordmark i{font-style:normal;font-size:.5em;color:var(--cream);vertical-align:.32em;margin-right:.08em}
@@ -109,7 +109,7 @@ nav .links a:hover{background:#ffffff14;color:var(--cream)}
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;padding:0;list-style:none;overflow:hidden;border-color:#5b4227}
 .stats li{display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px 8px 14px;gap:2px}
 .stats li+li{border-left:1px solid #ffffff14}
-.stats b{font:400 clamp(2rem,4vw,2.7rem)/1 var(--fh);color:var(--gold);text-shadow:0 3px 0 var(--ink)}
+.stats b{font:800 clamp(2rem,4vw,2.7rem)/1 var(--fh);color:var(--gold);text-shadow:0 3px 0 var(--ink)}
 .stats span{font:700 .9rem/1.25 var(--fb);color:var(--dim)}
 
 section{padding-block:clamp(64px,10vw,116px)}
@@ -150,14 +150,14 @@ section{padding-block:clamp(64px,10vw,116px)}
 .steps{display:grid;gap:18px;margin:26px 0 0;padding:0;list-style:none;counter-reset:s}
 .steps li{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:start}
 .steps li::before{counter-increment:s;content:counter(s);grid-row:span 2;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
-  font:400 1.3rem/1 var(--fh);color:var(--ink);background:linear-gradient(180deg,#ffe07a,var(--gold2));box-shadow:0 0 0 2px var(--ink),0 3px 0 2px var(--ink)}
-.steps b{font:400 1.3rem/1.2 var(--fh);color:var(--cream)}
+  font:800 1.3rem/1 var(--fh);color:var(--ink);background:linear-gradient(180deg,#ffe07a,var(--gold2));box-shadow:0 0 0 2px var(--ink),0 3px 0 2px var(--ink)}
+.steps b{font:800 1.3rem/1.2 var(--fh);color:var(--cream)}
 .steps span{color:var(--dim)}
 .titans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:clamp(44px,6vw,72px)}
 .titans figure{margin:0;overflow:hidden}
 .titans img{aspect-ratio:4/3;object-fit:cover;width:100%;border-bottom:2px solid var(--seam)}
 .titans figcaption{padding:12px 16px 14px;display:grid;gap:2px}
-.titans figcaption b{font:400 1.3rem var(--fh);color:var(--gold)}
+.titans figcaption b{font:800 1.3rem var(--fh);color:var(--gold)}
 .titans figcaption span{font-size:.95rem;color:var(--dim)}
 
 /* ---- the campaign: three acts and an epilogue, as the campaign screen lists them ---- */
@@ -174,15 +174,15 @@ section{padding-block:clamp(64px,10vw,116px)}
 .act ol{list-style:none;margin:0;padding:8px 10px 12px;display:grid;gap:4px;counter-reset:m}
 .act li{display:grid;grid-template-columns:28px 1fr;gap:2px 10px;align-items:center;padding:8px 8px;border-radius:12px}
 .act li:nth-child(odd){background:#ffffff07}
-.act li::before{counter-increment:m;content:counter(m);grid-row:span 2;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:400 .95rem/1 var(--fh);color:var(--c);border:2px solid var(--c)}
-.act li b{font:400 1.12rem/1.15 var(--fh);color:var(--cream)}
+.act li::before{counter-increment:m;content:counter(m);grid-row:span 2;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:800 .95rem/1 var(--fh);color:var(--c);border:2px solid var(--c)}
+.act li b{font:800 1.12rem/1.15 var(--fh);color:var(--cream)}
 .act li span{font:600 .85rem/1.25 var(--fb);color:var(--faint)}
 .epilogue{margin-top:18px;display:grid;grid-template-columns:auto 1fr auto;gap:12px 18px;align-items:center;padding:18px 20px;border-radius:18px;
   border:3px solid transparent;background:linear-gradient(var(--wood1),var(--wood1)) padding-box,linear-gradient(90deg,var(--hearth),var(--mire),var(--tide)) border-box}
 .epilogue .emblem{border-color:var(--gold);color:var(--gold)}
 .epilogue h3{font-size:1.5rem}
 .epilogue p{color:var(--dim)}
-.epilogue .final-m{font:400 1.15rem var(--fh);color:var(--cream);text-align:right}
+.epilogue .final-m{font:800 1.15rem var(--fh);color:var(--cream);text-align:right}
 .epilogue .final-m span{display:block;font:600 .85rem var(--fb);color:var(--faint)}
 .note{margin-top:16px;font:600 .95rem var(--fb);color:var(--faint);text-align:center}
 
@@ -205,10 +205,10 @@ section{padding-block:clamp(64px,10vw,116px)}
 .keys span{color:var(--dim)}
 .touch{display:grid;gap:12px;margin-top:22px}
 .touch div{display:flex;gap:12px;align-items:flex-start;color:var(--dim)}
-.touch b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font:400 1rem var(--fh);box-shadow:0 0 0 2px var(--ink)}
+.touch b{flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font:800 1rem var(--fh);box-shadow:0 0 0 2px var(--ink)}
 .clip{position:relative;width:100%;max-width:300px;margin-inline:auto;aspect-ratio:9/16;border-radius:26px;overflow:hidden;border:2px solid #000;box-shadow:0 0 0 2px var(--seam),0 24px 60px #000c;background:#000}
 .clip>img{width:100%;height:100%;object-fit:cover}
-.clip .t{position:absolute;left:0;right:0;top:9%;text-align:center;font:400 1.55rem/1 var(--fh);color:var(--gold);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:0 3px 0 var(--ink);padding-inline:12px}
+.clip .t{position:absolute;left:0;right:0;top:9%;text-align:center;font:800 1.55rem/1 var(--fh);color:var(--gold);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:0 3px 0 var(--ink);padding-inline:12px}
 .clip .t small{display:block;font:800 .62rem var(--fb);letter-spacing:.3em;color:var(--cream);-webkit-text-stroke:0;text-shadow:0 1px 3px #000;margin-bottom:6px}
 .clip .end{position:absolute;left:10%;right:10%;bottom:6%;display:grid;justify-items:center;gap:6px;padding:12px;border-radius:16px;background:#0b0705d9;border:1px solid #ffffff22;backdrop-filter:blur(6px)}
 .clip .end img{width:46%;background:#fff;padding:6px;border-radius:8px}
@@ -221,9 +221,9 @@ section{padding-block:clamp(64px,10vw,116px)}
 /* ---- questions ---- */
 .faq{max-width:780px;margin-inline:auto;display:grid;gap:12px}
 .faq details{border-radius:16px}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 20px;font:400 1.2rem/1.25 var(--fh)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 20px;font:800 1.2rem/1.25 var(--fh)}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary::after{content:"+";flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font:400 1.3rem/1 var(--fh);box-shadow:0 0 0 2px var(--ink);transition:transform .15s}
+.faq summary::after{content:"+";flex:none;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font:800 1.3rem/1 var(--fh);box-shadow:0 0 0 2px var(--ink);transition:transform .15s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq details p{padding:0 20px 18px;color:var(--dim);max-width:40em}
 
@@ -243,6 +243,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justif
 footer a{color:var(--cream);text-decoration:none}
 footer a:hover{text-decoration:underline}
 footer .social{display:flex;gap:16px}
+footer .credits{flex-basis:100%;font:600 .8rem/1.5 var(--fb);color:var(--faint)}
 
 /* a Play bar that stays in reach on a phone, once the hero's button has scrolled away */
 .dock{position:fixed;left:0;right:0;bottom:0;z-index:20;display:none;padding:10px max(16px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px));
@@ -597,33 +598,14 @@ footer .social{display:flex;gap:16px}
 <footer>
   <div class="wrap">
     <span>Wartles &amp; Wartoises is the war table in <a href="../">CLI Tortoises</a></span>
-    <span class="social"><a href="https://discord.gg/clitortoises" rel="noopener">Discord</a><a href="https://twitter.com/clitortoises" rel="noopener">Twitter</a></span>
+    <span>Run by KOBA42 / TensorRent</span>
+    <span class="social"><a href="../privacy.html">Privacy</a><a href="https://koba42.com" rel="noopener">Contact</a><a href="https://twitter.com/clitortoises" rel="noopener">Twitter</a></span>
+    <p class="credits">Sound effects by Kenney and animals by Quaternius (CC0). Fonts: Nunito and Baloo 2 (SIL Open Font License). Built with three.js (MIT). The characters' voices are synthetic.</p>
   </div>
 </footer>
 
 <div class="dock" id="dock"><a class="btn big" href="../game.html?demo#wartles" data-play><svg aria-hidden="true"><use href="#i-play"/></svg><span>Play free</span></a></div>
 
-<script>
-(function () {
-  // the Play bar on a phone shows while neither of the page's own Play buttons is in sight
-  var dock = document.getElementById("dock"), seen = {};
-  if (dock && "IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { seen[e.target.id] = e.isIntersecting; });
-      dock.classList.toggle("on", !seen.play && !seen.play2);
-    }, { threshold: 0 });
-    ["play", "play2"].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
-  }
-
-  // Share: the phone's own share sheet where there is one, else the link copied
-  var share = document.getElementById("share"), url = "https://tensorrent.github.io/CLI-Tortoises-Demo/wartles/";
-  if (share) share.addEventListener("click", function () {
-    var said = function (t) { share.textContent = t; setTimeout(function () { share.textContent = "Share the link"; }, 2200); };
-    if (navigator.share) { navigator.share({ title: "Wartles & Wartoises", text: "Turtles against tortoises: a free war in your browser.", url: url }).catch(function () {}); return; }
-    if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { said("Link copied"); }, function () { said("Copy it from below"); });
-    else said("Copy it from below");
-  });
-})();
-</script>
+<script src="page.js"></script>
 </body>
 </html>

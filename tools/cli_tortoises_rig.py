@@ -46,7 +46,7 @@ THE ISLAND'S CHARACTERS
   (Object properties > Custom Properties; no property is a tortoise), and is checked against that character's
   spec: the same rules for the armature, the axes, 30 fps, in place, loops and `hit` markers, with its own clips,
   sockets and slots. The game paints every slot in its own colour, in the island's drawn look.
-    cli_kind = dr_shrimp    Dr. Bubba Gump Shrimp, the pistol shrimp at the cleaning station (Shell No)
+    cli_kind = dr_shrimp    Dr. Shrimp, the pistol shrimp at the cleaning station (Shell No)
         clips    idle, talk (needed; they loop) · walk, dance (loop) · aim, snap, celebrate, wave (once): aim
                  brings his snapping claw to bear and cocks it (the game holds its last frame), and snap starts
                  from there
@@ -57,7 +57,6 @@ THE ISLAND'S CHARACTERS
                  probe in his small claw, shown once you've brought him one), glint (the shine on his eyes and
                  mirror: drawn unlit, with no ink)
         budget   about 5-15k triangles
-    app/scripts/dr_shrimp.py builds him to it, and is the worked example.
 """
 import bpy, json, math, os, sys
 from mathutils import Vector

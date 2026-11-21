@@ -8,11 +8,8 @@ and command the Wartles war table. It runs in the browser on a phone or a comput
   Wartoises), the one its clips send people to.
 - Your progress stays in this browser.
 
-This site is built from [tensorrent/CLI--Tortoises](https://github.com/tensorrent/CLI--Tortoises) at
-`b5e4c1846318`. That repo holds the source, the tests, the save server and the build:
-
-```sh
-cd app && npm install && npm run build:demo
-```
+Built from a private source repository; this repo holds the published build only. All rights reserved unless stated in LICENSE.
 
 The game's own code here is obfuscated; three.js and the other libraries ship as they are.
+
+Who runs it and what it keeps: [privacy.html](privacy.html).
